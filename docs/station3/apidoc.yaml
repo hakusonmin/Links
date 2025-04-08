@@ -1,0 +1,268 @@
+openapi: 3.0.3
+
+info:
+  title: Links
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/v1
+
+tags:
+  - name: Articles
+    description: 記事の管理
+  - name: Users
+    description: ユーザー情報
+  - name: Comments
+    description: コメント機能
+  - name: Likes
+    description: いいね機能
+  - name: Follows
+    description: フォロー機能
+  - name: Genres
+    description: ジャンル管理
+
+paths:
+  /user/articles:
+    get:
+      summary: 記事一覧を取得
+      tags:
+        - Articles
+      responses:
+        "200":
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Article"
+      security:
+        - sessionAuth: []
+
+    post:
+      summary: 記事を作成
+      tags:
+        - Articles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        "201":
+          description: 作成成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+  /articles/{id}:
+    get:
+      summary: 記事の詳細取得
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    put:
+      summary: 記事を更新
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        "200":
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    delete:
+      summary: 記事を削除
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: 削除成功
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        profile_text:
+          type: string
+        email:
+          type: string
+          format: email
+        github_url:
+          type: string
+          format: uri
+        Twitter_url:
+          type: string
+          format: uri
+        another_url:
+          type: string
+          format: uri
+        is_admin:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        priority:
+          type: integer
+        likes:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+        comments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Comment"
+    Link:
+      type: object
+      properties:
+        id:
+          type: integer
+        article_id:
+          type: integer
+        title:
+          type: string
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        article_id:
+          type: integer
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Follow:
+      type: object
+      properties:
+        id:
+          type: integer
+        follow_id:
+          type: integer
+        follower_id:
+          type: integer
+    Like:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        article_id:
+          type: integer
+    Session:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        ip_address:
+          type: string
+        user_agent:
+          type: string
+        payload:
+          type: string
+        last_activity:
+          type: string
+          format: date-time
+    PasswordResetToken:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        token:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+  # 直下なの注意
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: XSRF-TOKEN
