@@ -5,9 +5,11 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://api.example.com/v1
+  - url: https://api.example.com/
 
 tags:
+  - name: Articles
+    description: 記事の管理
   - name: Articles
     description: 記事の管理
   - name: Users
