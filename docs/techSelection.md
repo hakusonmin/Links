@@ -1,4 +1,6 @@
-### 技術選定
+### 技術選定(TechSelection)
+***
+
 - フロントエンド
   - Vue.js：Laravelと一緒に使われる場合が多く、Laravel+Vue.jsの資料が沢山あることから
   - TailwindCSS:laravel12のStarter-kitに標準搭載されているから

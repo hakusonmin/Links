@@ -1,0 +1,377 @@
+openapi: 3.0.3
+
+info:
+  title: Links
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/
+
+tags:
+  - name: Articles
+    description: 記事の管理
+  - name: Users
+    description: ユーザー情報
+  - name: Likes
+    description: いいね機能
+  - name: Follows
+    description: フォロー機能
+  - name: Admin
+    description: 記事の管理
+
+paths:
+  /article-search:
+    get:
+      summary: 記事一覧を取得
+      description: |-
+        Search for a users and get a list.
+      tags:
+        - Articles
+      responses:
+        "200":
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleSearch"
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+    post:
+      summary: 記事を作成
+      tags:
+        - Articles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        "201":
+          description: 作成成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+  /articles/{id}:
+    get:
+      summary: 記事の詳細取得
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    put:
+      summary: 記事を更新
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        "200":
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    delete:
+      summary: 記事を削除
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: 削除成功
+
+
+components:
+  schemas:
+
+    ArticleSearch:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+  
+    ArticleMutation:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            links:
+              type: array
+              items:
+                $ref: "#/components/schemas/Link"
+            genres:
+              type: array
+              items:
+                $ref: "#/components/schemas/Genre"
+            comments:
+              type: array
+              items:
+                $ref: "#/components/schemas/Comment"
+
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: laravelの公式ドキュメントの読み方
+        content:
+          type: string
+          example: laravelの公式ドキュメントを読む前にベストプラクティスを知ると良いでしょう
+        priority:
+          type: integer
+          example: High
+        likes:
+          type: integer
+          example: 100
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Tanaka Taro
+        profile_text:
+          type: string
+          example: よろしくお願いします。田中太郎です
+        email:
+          type: string
+          format: email
+          example: hoge.example.com
+        followers: 
+          type: integer
+          example: 100
+        github_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        Twitter_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        another_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        is_admin:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Link:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Laravel公式ドキュメントの読み方について
+        link_url:
+          type: string
+          example: hoge.example.com
+
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Laravel
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: 投稿ありがとうございます。
+        created_at:
+          type: string
+          format: date-time
+
+    Follow:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        follow_id:
+          type: integer
+          example: 1
+        follower_id:
+          type: integer
+          example: 2
+
+    Like:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+
+    ErrorModel:
+      description: Response Error Model.
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          title: error code
+          type: string
+          example: 500
+        message:
+          title: error message
+          type: string
+          example: Internal Server Error.
+
+  responses:
+
+    BadRequestResponse:
+      description: | 
+        Bad Request.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 400
+              message:
+                example: Bad Request.
+
+    UnauthorizedResponse:
+      description: | 
+        Unauthorized.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 401
+              message:
+                example: Unauthorized.
+
+    ForbiddenResponse:
+      description: | 
+        Forbidden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 403
+              message:
+                example: Forbidden.
+
+    NotFoundResponse:
+      description: | 
+        Not Found.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 404
+              message:
+                example: Not Found.
+
+    InternalServerErrorResponse:
+      description: |-
+        Internal Server Error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+
+  # 直下なの注意
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: XSRF-TOKEN
