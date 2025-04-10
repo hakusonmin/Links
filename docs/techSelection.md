@@ -1,4 +1,4 @@
-### 技術選定(TechSelection)
+### 技術選定書(TechSelection)
 ***
 
 - フロントエンド
