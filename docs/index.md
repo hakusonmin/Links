@@ -5,7 +5,7 @@
 - [画面設計書](https://www.figma.com/design/PN0sopRyfthY6Wg1KMYneR/Links?node-id=368-11078&t=dc7rcGu1O78SJach-1) (Figma)(プロトタイプで動きます)
 - [API仕様書](apidoc.yaml) (OpenAPI形式)(Swaggerで閲覧してください)
 - [ER図](er.md)
-- [テーブル定義書](https://dochttps://www.figma.com/board/LqQSjrjNWCCRsoZAheK6Tn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%95%E3%83%AD%E3%83%BC%E5%9B%B3?node-id=4-27&t=Sb0yEix4bIhlOo2q-1)(Figjamを利用しています)
+- [テーブル定義書](https://dochttps://www.figma.com/board/LqQSjrjNWCCRsoZAheK6Tn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%95%E3%83%AD%E3%83%BC%E5%9B%B3?node-id=4-27&t=Sb0yEix4bIhlOo2q-1) (Figjamを利用しています)
 - [バリデーション設計書](https://docs.google.com/spreadsheets/d/1jfh4XFvajT3JjLGytK9GHodsaBh1peIUSf0R0QeJbcE/edit?usp=sharing)
 - [例外設計書](https://docs.google.com/spreadsheets/d/1fv8wNNDkx_m9rIiu8QDmGtNwILAYrur8mOtUhFHrNY4/edit?usp=sharing)
 - [テスト設計書](https://docs.google.com/spreadsheets/d/1S6HbHadiXYgfojZlGivRoFaMag1ApHLbE4QCj5zj84Q/edit?usp=sharing)
