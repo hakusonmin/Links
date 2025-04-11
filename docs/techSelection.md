@@ -12,6 +12,7 @@
   - Laravel：バックエンドフレームワークの中では一番メジャー
   - Inertia.js：Laravelの資産を利用するため。また、Laravel12系からは公式認定のデファクトスタンダードとなっており、認証系もInertia.js前提で組み込まれている
     [仕組みのリンク](https://inertiajs.com/how-it-works)
+  - [Pest](https://pestphp.com/): PHPUnitラッバー JestのようなBDDを意識した仕様
   - MySQL
 
 - インフラ
