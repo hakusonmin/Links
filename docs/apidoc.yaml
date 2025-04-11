@@ -16,9 +16,6 @@ info:
     ***
     - articles/{article}であるのは、Laravelの「ルートモデルバインディング」を利用しているからです。
     ***
-    - Inertia.jsでは302のリダイレクトの処理でJsonが返ってくるように出来ているため、正常系は200ではなく302です。(成功or失敗はSharedしてあるstatusで一緒にわかります)<br>
-      [公式ドキュメント（仕組み解説)](https://inertiajs.com/how-it-works)
-    ***
 
 servers:
   - url: https://api.example.com/
@@ -47,7 +44,7 @@ paths:
       tags:
         - General
       responses:
-          "302":
+          "200":
             $ref: "#/components/responses/HomeResponse"
           '403':
             $ref: '#/components/responses/ForbiddenResponse'
@@ -66,7 +63,7 @@ paths:
         - $ref: "#/components/parameters/SearchResultSortOrder"
         - $ref: "#/components/parameters/PageNumber"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleCommonResponse"
         '403':
           $ref: '#/components/responses/ForbiddenResponse'
@@ -83,7 +80,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/ArticleIdParameter"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleDetailResponse"
         '403':
           $ref: '#/components/responses/ForbiddenResponse'
@@ -142,7 +139,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/ArticleIdParameter"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleDetailResponse"
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -157,11 +154,11 @@ paths:
 
   /articles/create: 
     get:
-      summary: 記事を投稿
+      summary: 記事投稿画面へ
       tags:
         - Articles
       responses:
-        "302":
+        "200":
           $ref: '#/components/responses/FoundResponse'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -244,7 +241,7 @@ paths:
       tags:
         - Comments
       responses:
-        "302":
+        "200":
           $ref: '#/components/responses/FoundResponse'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -259,11 +256,11 @@ paths:
 
   /articles/{article}/comments/{comment}/edit: 
     get:
-      summary: コメントを投稿する
+      summary: コメントを編集画面へ
       tags:
         - Comments
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/CommentResponse"
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -307,7 +304,7 @@ paths:
         - $ref: "#/components/parameters/SearchResultSortOrder"
         - $ref: "#/components/parameters/PageNumber"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/UserCommonResponse"
         '404':
           $ref: '#/components/responses/NotFoundResponse'
@@ -325,7 +322,7 @@ paths:
         - $ref: "#/components/parameters/ArticleSortOrder"
         - $ref: "#/components/parameters/PageNumber"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleCommonResponse"
         '404':
           $ref: '#/components/responses/NotFoundResponse'
@@ -361,7 +358,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/UserIdParameter"
       responses:
-        "302":
+        "200":
          $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -380,7 +377,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/UserIdParameter"
       responses:
-        "302":
+        "200":
           $ref: '#/components/responses/FoundResponse'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -401,7 +398,7 @@ paths:
         - $ref: "#/components/parameters/ArticleSortOrder"
         - $ref: "#/components/parameters/PageNumber"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleCommonResponse"
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
@@ -421,7 +418,7 @@ paths:
         - $ref: "#/components/parameters/UserIdParameter"
         - $ref: "#/components/parameters/PageNumber"
       responses:
-        "302":
+        "200":
           $ref: "#/components/responses/ArticleCommonResponse"
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
