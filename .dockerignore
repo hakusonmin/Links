@@ -1,0 +1,35 @@
+# 不要な依存ライブラリ・バイナリ
+/src/node_modules
+/src/vendor
+
+# Laravelキャッシュ・セッション・ログ等
+/src/storage/*.key
+/src/storage/logs/*
+/src/storage/framework/cache/data/*
+/src/storage/framework/sessions/*
+/src/storage/framework/testing/*
+/src/storage/framework/views/*
+
+# publicの一時ファイル
+/src/public/hot
+/src/public/storage
+
+# IDE/エディタやGit関連
+/.git
+/.github
+/.idea
+/.vscode
+
+# 一時ファイル・テストキャッシュ・CIファイル
+/src/.phpunit.result.cache
+/src/.php-cs-fixer.cache
+/src/npm-debug.log
+/src/yarn-error.log
+/src/.styleci.yml
+
+# .envや環境依存ファイル（セキュリティの観点から除外）
+**.env*
+
+# その他除外推奨の設定ファイル
+**/.editorconfig
+**/.gitattributes
