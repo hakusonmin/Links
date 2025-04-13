@@ -20,6 +20,12 @@ export default {
                 sm: 'calc(var(--radius) - 4px)',
             },
             colors: {
+
+                black: 'var(--black)',
+                lightgray: 'var(--light-gray)',
+                white: 'var(--white)',
+                fontblack: 'var(--font-black)',
+
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {

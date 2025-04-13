@@ -21,7 +21,8 @@ onMounted(() => {
       <ValidationErrors />
       <slot />
     </div>
-
+    
+    <div class="line"></div>
   </div>
 </template>
 

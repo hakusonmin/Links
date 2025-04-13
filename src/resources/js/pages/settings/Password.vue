@@ -101,7 +101,7 @@ const updatePassword = () => {
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing">保存する</Button>
+                        <Button :disabled="form.processing" class="bg-black">保存する</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"
