@@ -22,9 +22,6 @@ onMounted(() => {
       <slot />
     </div>
 
-    <div class="line"></div>
-
-    <LayoutFooter />
   </div>
 </template>
 

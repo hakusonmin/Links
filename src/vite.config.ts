@@ -8,6 +8,17 @@ import { defineConfig } from 'vite';
 import terser from '@rollup/plugin-terser';
 
 export default defineConfig({
+    server: {
+        host: '0.0.0.0', // Docker で外部公開
+        port: 5173,
+        strictPort: true,
+        watch: {
+          usePolling: true,
+        },
+        hmr: {
+          host: '127.0.0.1', // ← ここを明示するとブラウザが [::1] を使わなくなる！
+        },
+      },
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],

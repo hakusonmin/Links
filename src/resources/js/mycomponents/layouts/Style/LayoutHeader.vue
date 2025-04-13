@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/vue3';
   <header>
     <div class="header-container">
       <h2 class="site-title">
-        <Link href="/">小説投稿サイト</Link>
+        <Link href="/">Links</Link>
       </h2>
       <nav>
         <ul>
