@@ -1,0 +1,1114 @@
+openapi: 3.1.1
+
+info:
+  title: Links
+  version: 1.0.0
+  description: |
+    ***
+    - このAPIは Inertia.js + Laravel に基づいています。
+
+    - 全画面に渡って共通で共有されている情報（shared props）：
+      - `auth.user`: 現在ログインしているユーザー
+      - `flash.message`: 成功・エラー時の通知
+      - `flash.status`: 通知の種類（success / error）
+
+      これらのプロパティは Inertia の仕組みにより、自動的にすべてのレスポンスに含まれます。
+    ***
+    - articles/{article}であるのは、Laravelの「ルートモデルバインディング」を利用しているからです。
+    ***
+
+servers:
+  - url: https://api.example.com/
+
+tags:
+  - name: General
+    description: 一般
+  - name: Articles
+    description: 記事
+  - name: Comments
+    description: コメント
+  - name: Users
+    description: ユーザー情報
+  - name: Genres
+    description: ジャンル機能
+  - name: Likes
+    description: いいね機能
+  - name: Follows
+    description: フォロー機能
+
+paths:
+
+  /home:
+    get:
+      summary: ホーム画面
+      tags:
+        - General
+      responses:
+          "200":
+            $ref: "#/components/responses/HomeResponse"
+          '403':
+            $ref: '#/components/responses/ForbiddenResponse'
+          '404':
+            $ref: '#/components/responses/NotFoundResponse'
+          '500':
+            $ref: '#/components/responses/InternalServerErrorResponse'
+    
+  /articles/search:
+    get:
+      summary: 記事を検索
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/QueryKeyword"
+        - $ref: "#/components/parameters/SearchResultSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /articles/{article}:
+    get:
+      summary: 記事の詳細取得
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleDetailResponse"
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+    put:
+      summary: 記事を更新
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      requestBody:
+        $ref: "#/components/requestBodies/ArticleDetailRequestBody"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+      
+    delete:
+      summary: 記事を削除
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/edit: 
+    get:
+      summary: 記事の編集画面へ
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleDetailResponse"
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/create: 
+    get:
+      summary: 記事投稿画面へ
+      tags:
+        - Articles
+      responses:
+        "200":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/: 
+    post:
+      summary: 記事を投稿
+      tags:
+        - Articles
+      requestBody:
+        $ref: "#/components/requestBodies/ArticleDetailRequestBody"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/comments/{comment}:
+    put:
+      summary: 記事を更新
+      tags:
+        - Comments
+      parameters:
+        - $ref: "#/components/parameters/CommentIdParameter"
+      requestBody:
+        $ref: "#/components/requestBodies/CommentRequestBody"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+    delete:
+      summary: コメントを削除
+      tags:
+        - Comments
+      parameters:
+        - $ref: "#/components/parameters/CommentIdParameter"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/comments/create: 
+    get:
+      summary: コメントを投稿する
+      tags:
+        - Comments
+      responses:
+        "200":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/comments/{comment}/edit: 
+    get:
+      summary: コメントを編集画面へ
+      tags:
+        - Comments
+      responses:
+        "200":
+          $ref: "#/components/responses/CommentResponse"
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/comments/: 
+    post:
+      summary: コメントを保存
+      tags:
+        - Comments
+      requestBody:
+        $ref: "#/components/requestBodies/CommentRequestBody"
+      responses:
+        "302":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /users/search:
+    get:
+      summary: ユーザーを検索
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/QueryKeyword"
+        - $ref: "#/components/parameters/SearchResultSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserCommonResponse"
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  
+  
+  /users/{user}:
+    get:
+      summary: ユーザー詳細画面
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+        - $ref: "#/components/parameters/ArticleSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /users/{user}/profile: 
+    put:
+      summary: ユーザープロフィール編集保存
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateUserProfileRequestBody'
+      responses:
+        "302":
+         $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /users/{user}/profile/edit: 
+    get:
+      summary: ユーザープロフィール編集画面
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        "200":
+         $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /users/{user}/dashboard:
+    get:
+      summary: ユーザーダッシュボード画面
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        "200":
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+  
+  /users/{user}/likes:
+    get:
+      summary: いいねした記事一覧
+      tags:
+        - Likes
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+        - $ref: "#/components/parameters/ArticleSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /users/{user}/follows:
+    get:
+      summary: フォロワーしている人一覧
+      tags:
+        - Follows
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+    
+  /users/{user}/follow:
+    post:
+      summary: フォローする
+      tags:
+        - Follows
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        '302':
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+
+  /users/{user}/unfollow:
+    delete:
+      summary: フォローを解除する
+      tags:
+        - Follows
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        '302':
+          $ref: '#/components/responses/FoundResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+      security:
+        - sessionAuth: []
+  
+  /genres/{genre}/articles:
+    get:
+      summary: ジャンルの詳細取得(ジャンルタグから遷移する)
+      tags:
+        - Genres
+      parameters:
+        - $ref: "#/components/parameters/GenreIdParameter"
+        - $ref: "#/components/parameters/SearchResultSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/GenreResponse"
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+components:
+  schemas:
+    Home:
+      type: object
+      properties:
+        articleRanking:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArticleCommon"
+        userRanking:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCommon"
+
+    ArticleCommon:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+
+    ArticleDetail:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            genres:
+              type: array
+              items:
+                $ref: "#/components/schemas/Genre"
+            links:
+              type: array
+              items:
+                $ref: "#/components/schemas/Link"
+            comments:
+              type: array
+              items:
+                $ref: "#/components/schemas/Comment"
+        
+    UserCommon:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/Follow"
+  
+    ArticleMutation:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            genres:
+              type: array
+              items:
+                $ref: "#/components/schemas/Genre"
+            comments:
+              type: array
+              items:
+                $ref: "#/components/schemas/Comment"
+    
+    UserProfileInput:
+      type: object
+      properties:
+        profile_text:
+          type: string
+          example: "こんにちは田中太郎です。"
+        github_url:
+          type: string
+          format: uri
+        x_url:
+          type: string
+          format: uri
+        another_url:
+          type: string
+          format: uri
+      required:
+        - profile_text
+
+    ArticleDetailRequestBodyInput:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Laravelの公式ドキュメントの読み方と一緒に読みたいオススメリンク一覧
+        genres:
+          type: array
+          items:
+            type: string
+          example:
+            - Laravel
+            - PHP
+            - ドキュメント
+        priority:
+          type: string
+          example: High
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: "公式ドキュメント"
+              url:
+                type: string
+                format: uri
+                example: "https://example.com"
+        content:
+          type: string
+          example: "これは本文の内容です。"
+      required:
+        - title
+        - genres
+        - priority
+        - content
+
+    CommentRequestBodyInput:
+      description: Comment data
+      type: object
+      properties:
+        content:
+          type: string
+          example: 投稿ありがとうございます
+    
+    ArticleFilterByGenre:
+      allOf:
+        - $ref: "#/components/schemas/Article"
+        - type: object
+          properties:
+            user:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            genres:
+              type: array
+              items:
+                $ref: "#/components/schemas/Genre"
+
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: laravelの公式ドキュメントの読み方
+        content:
+          type: string
+          example: laravelの公式ドキュメントを読む前にベストプラクティスを知ると良いでしょう
+        priority:
+          type: integer
+          example: High
+        likes:
+          type: integer
+          example: 100
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Tanaka Taro
+        profile_text:
+          type: string
+          example: よろしくお願いします。田中太郎です
+        email:
+          type: string
+          format: email
+          example: hoge.example.com
+        followers: 
+          type: integer
+          example: 100
+        github_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        Twitter_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        another_url:
+          type: string
+          format: uri
+          example: hoge.example.com
+        is_admin:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Link:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Laravel公式ドキュメントの読み方について
+        link_url:
+          type: string
+          example: hoge.example.com
+
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Laravel
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: 投稿ありがとうございます。
+        created_at:
+          type: string
+          format: date-time
+
+    Follow:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        follow_id:
+          type: integer
+          example: 1
+        follower_id:
+          type: integer
+          example: 2
+
+    Like:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        article_id:
+          type: integer
+          example: 1
+
+    ErrorModel:
+      description: Response Error Model.
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          title: error code
+          type: string
+          example: 500
+        message:
+          title: error message
+          type: string
+          example: Internal Server Error.
+  
+  parameters:
+    QueryKeyword:
+      name: query
+      in: query
+      required: false
+      description: 検索キーワード
+      schema:
+        type: string
+
+    SearchResultSortOrder:
+      name: sort
+      in: query
+      required: false
+      description: 並び順（latest または likes）
+      schema:
+        type: string
+        enum: [latest, likes]
+        default: latest
+
+    ArticleSortOrder:
+      name: sort
+      in: query
+      required: false
+      description: 並び順（priority latest likes）
+      schema:
+        type: string
+        enum: [priority,latest, likes]
+        default: priority
+
+    PageNumber:
+      name: page
+      in: query
+      required: false
+      description: ページ番号
+      schema:
+        type: integer
+        default: 1
+
+    UserIdParameter:
+      name: user
+      in: path
+      description: User id.
+      required: true
+      schema:
+        type: string
+        format: uuid4
+      example: cfe43609-4c38-d52d-44ff-66bf2bc2d5c2
+
+    ArticleIdParameter:
+      name: article
+      in: path
+      description: Article id.
+      required: true
+      schema:
+        type: string
+        format: uuid4
+      example: cfe43609-4c38-d52d-44ff-66bf2bc2d5c2
+
+    GenreIdParameter:
+      name: genre
+      in: path
+      description: Genre id.
+      required: true
+      schema:
+        type: string
+        format: uuid4
+      example: cfe43609-4c38-d52d-44ff-66bf2bc2d5c2
+
+    CommentIdParameter:
+      name: comment
+      in: path
+      description: Genre id.
+      required: true
+      schema:
+        type: string
+        format: uuid4
+      example: cfe43609-4c38-d52d-44ff-66bf2bc2d5c2
+
+  requestBodies:
+
+    ArticleDetailRequestBody:
+      description: Article data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ArticleDetailRequestBodyInput"
+    
+    UpdateUserProfileRequestBody:
+      description: profile data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserProfileInput"
+    
+    CommentRequestBody:
+      description: Commet data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CommentRequestBodyInput"
+
+  responses:
+    HomeResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/Home"
+
+    ArticleCommonResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/ArticleCommon"
+               pagination:
+                 type: object
+                 properties:
+                   current_page:
+                     type: integer
+                   last_page:
+                     type: integer
+                   total:
+                     type: integer
+
+    ArticleDetailResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/ArticleDetail"
+               pagination:
+                 type: object
+                 properties:
+                   current_page:
+                     type: integer
+                   last_page:
+                     type: integer
+                   total:
+                     type: integer
+
+    UserCommonResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/UserCommon"
+               pagination:
+                 type: object
+                 properties:
+                   current_page:
+                     type: integer
+                   last_page:
+                     type: integer
+                   total:
+                     type: integer
+    
+    GenreResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/ArticleFilterByGenre"
+               pagination:
+                 type: object
+                 properties:
+                   current_page:
+                     type: integer
+                   last_page:
+                     type: integer
+                   total:
+                     type: integer
+
+    CommentResponse:
+      description: 成功時のレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/Comment"
+    
+    FollowResponse:
+      description: フォロワーしているユーザー一覧
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+               props:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/User"
+               pagination:
+                 type: object
+                 properties:
+                   current_page:
+                     type: integer
+                   last_page:
+                     type: integer
+                   total:
+                     type: integer
+
+    FoundResponse:
+      description: | 
+        Found(inertia.jsでは302が正常系)
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                example: 302
+              message:
+                example: Found
+
+    BadRequestResponse:
+      description: | 
+        Bad Request.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 400
+              message:
+                example: Bad Request.
+
+    UnauthorizedResponse:
+      description: | 
+        Unauthorized.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 401
+              message:
+                example: Unauthorized.
+
+    ForbiddenResponse:
+      description: | 
+        Forbidden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 403
+              message:
+                example: Forbidden.
+
+    NotFoundResponse:
+      description: | 
+        Not Found.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 404
+              message:
+                example: Not Found.
+
+    InternalServerErrorResponse:
+      description: |-
+        Internal Server Error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+
+  # 直下なの注意
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: XSRF-TOKEN
