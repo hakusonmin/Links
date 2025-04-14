@@ -26,3 +26,8 @@ createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+
+// ここでdarkModeを解除
+document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.classList.remove('dark');
+  });

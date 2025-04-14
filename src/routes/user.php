@@ -1,28 +1,45 @@
 <?php
 
-use App\Http\Controllers\User\ArticleController;
-use App\Http\Controllers\User\ChapterController;
-use App\Http\Controllers\User\NovelController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MyPageUserController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
 
-Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
-    Route::resource('novels', NovelController::class);
+    #記事関係ルート
+    Route::get('articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('articles/{articles}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('articles/{articles}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('articles/{articles}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
-    Route::prefix('novels/{novel}')->scopeBindings()->group(function () {
-        Route::resource('chapters', ChapterController::class);
+    #コメント関係ルート
+    Route::prefix('articles/{article}')->scopeBindings()->group(function () {
+        Route::get('comments/create', [CommentController::class, 'create'])->name('comments.create');
+        Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::get('comments/{comments}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+        Route::put('comments/{comments}', [CommentController::class, 'update'])->name('comments.update');
+        Route::delete('comments/{comments}', [CommentController::class, 'destroy'])->name('comments.destroy');
     });
 
-    Route::prefix('chapters/{chapter}')->scopeBindings()->group(function () {
-        Route::resource('articles', ArticleController::class);
+    //アカウント関係ルート
+    Route::prefix('users/{user}')->group(function () {
+        Route::get('', [UserController::class, 'index'])->name('users.index');
+        Route::post('like', [UserController::class, 'like'])->name('like');
+        Route::delete('unlike', [UserController::class, 'unlike'])->name('unlike');
+        Route::post('follow', [UserController::class, 'follow'])->name('follow');
+        Route::delete('unfollow', [UserController::class, 'unfollow'])->name('unfollow');
     });
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    //マイページ関係ルート(likesはいいねした記事一覧/followsはフォローしているユーザー一覧)
+    Route::prefix('mypage')->name('mypage.')->group(function () {
+        Route::get('dashboard', [MyPageUserController::class, 'dashboard'])->name('dashboard');
+        Route::get('liked-articles', [MyPageUserController::class, 'likedArticle'])->name('liked-articles');
+        Route::get('followed-users', [MyPageUserController::class, 'followedUsers'])->name('followed-users');
+        // ↓->name('mypage.')あるからprofileのコンフリクト安心
+        Route::get('profile/edit', [MyPageUserController::class, 'profileEdit'])->name('profile.edit');
+        Route::put('profile', [MyPageUserController::class, 'profileUpdate'])->name('profile.update');
+    });
 });

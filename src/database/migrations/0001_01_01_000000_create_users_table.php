@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('profile_text')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('followers')->default(0);
             $table->boolean('is_admin')->nullable()->default(false);
+            $table->string('github_url')->nullable();
+            $table->string('x_url')->nullable();
+            $table->string('another_url')->nullable();
             $table->timestamps();
         });
 

@@ -16,7 +16,7 @@ tasks:
 
   build:
     cmds:
-      - docker compose build
+      - docker compose build --no-cache
 
   up:
     cmds:

@@ -20,8 +20,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile_text',
         'password',
         'is_admin',
+        'followers',
+        'github_url',
+        'x_url',
+        'another_url',
     ];
 
     /**
@@ -32,6 +37,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
     ];
 
     /**
@@ -53,8 +59,28 @@ class User extends Authenticatable
         return $this->is_admin;
     }
 
-    public function novels()
+    public function articles()
     {
-        return $this->hasMany(Novel::class);
+        return $this->hasMany(Article::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id');
     }
 }

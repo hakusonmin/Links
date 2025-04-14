@@ -1,18 +1,18 @@
 <script setup>
-import { onMounted } from 'vue';
 import FlashMessage from '../components/Messages/FlashMessage.vue';
 import ValidationErrors from '../components/Messages/ValidationErrors.vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed } from "vue";
 import LayoutHeader from './Style/LayoutHeader.vue';
-import LayoutFooter from './Style/LayoutFooter.vue';
+import LayoutHeaderGuest from './Style/LayoutHeaderGuest.vue';
 
-onMounted(() => {
-  document.documentElement.classList.remove('dark');
-});
+const page = usePage();
+const isLoggedIn = computed(() => !!page.props.auth.user);
 </script>
 
 <template>
   <div>
-    <LayoutHeader />
+    <component :is="isLoggedIn ? LayoutHeader : LayoutHeaderGuest" />
 
     <div class="line"></div>
 
@@ -21,8 +21,7 @@ onMounted(() => {
       <ValidationErrors />
       <slot />
     </div>
-    
-    <div class="line"></div>
+
   </div>
 </template>
 
@@ -30,7 +29,6 @@ onMounted(() => {
 .main-wrapper {
   width: 100%;
   background-color: rgb(233, 229, 222);
-  min-height: 65vh;
 }
 
 .line {

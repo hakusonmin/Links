@@ -7,14 +7,15 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background-color: rgb(67, 67, 67);
+  background-color: rgb(233, 229, 222);
 }
 
 :root {
   --black: rgb(67, 67, 67);
   --light-gray: rgb(233, 229, 222);
   --white: rgb(255, 255, 255);
-  --font-black: rgb(87, 87, 87);
+  --font-black: rgb(67, 67, 67);
+  --border-color: rgb(141, 141, 141);
 }
 
 body,

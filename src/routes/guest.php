@@ -1,20 +1,26 @@
 <?php
-
-use App\Http\Controllers\Guest\ArticleController;
-use App\Http\Controllers\Guest\ChapterController;
-use App\Http\Controllers\Guest\NovelController;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return Inertia::render('Guest/Home');
+})->name('home');
 
-Route::prefix('guest')->name('guest.')->group(function () {
-    Route::resource('novels', NovelController::class);
+Route::get('/about', function () {
+    return Inertia::render('Guest/About');
+})->name('about');
 
-    Route::prefix('novels/{novel}')->scopeBindings()->group(function () {
-        Route::resource('chapters', ChapterController::class);
-    });
+Route::get('articles/search', [ArticleController::class, 'search'])->name('articles.search');
+Route::get('articles/{articles}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/genres/{genre}/articles', [ArticleController::class, 'genre'])->name('articles.genre');
 
-    Route::prefix('chapters/{chapter}')->scopeBindings()->group(function () {
-        Route::resource('articles', ArticleController::class);
-    });
+Route::prefix('articles/{article}')->scopeBindings()->group(function () {
+    Route::get('comments', [CommentController::class, 'index'])->name('comments.index');
 });
+
+Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+Route::get('users/{users}', [UserController::class, 'show'])->name('users.show');

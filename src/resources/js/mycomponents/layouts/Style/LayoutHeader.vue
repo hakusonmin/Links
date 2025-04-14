@@ -1,3 +1,4 @@
+<!-- LayoutHeader.vue -->
 <script setup>
 import { Link } from '@inertiajs/vue3';
 </script>
@@ -6,18 +7,15 @@ import { Link } from '@inertiajs/vue3';
   <header>
     <div class="header-container">
       <h2 class="site-title">
-        <Link href="/">Links</Link>
+        <Link href="/" >Links</Link>
       </h2>
       <nav>
         <ul>
           <li>
-            <Link href="/register">新規登録</Link>
+            <Link href="/about">Linksとは？</Link>
           </li>
           <li>
-            <Link href="/">プロフィール</Link>
-          </li>
-          <li>
-            <Link href="/">ユーザーホーム</Link>
+            <Link :href="route('mypage.dashboard')" method="get" class="link">マイページ</Link>
           </li>
           <li>
             <Link :href="route('logout')" method="post" class="link">ログアウト</Link>
@@ -46,9 +44,9 @@ header {
 }
 
 .site-title a {
-  color: rgb(195, 195, 195);
-  font-weight: 100;
-  font-size: 22px;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 30px;
 }
 
 nav ul {
@@ -58,17 +56,18 @@ nav ul {
 }
 
 nav ul li {
-  font-size: 1.1rem;
+  font-size: 20px;
+  font-weight: bold;
   margin-left: 2.4dvw;
   list-style: none;
 }
 
 nav ul li a {
-  color: rgb(195, 195, 195);
+  color: var(--white);
 }
 
 .link {
-  color: rgb(195, 195, 195);
+  color: var(--white);
 }
 
 @media screen and (max-width: 600px) {
