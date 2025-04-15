@@ -24,7 +24,7 @@ const search = () => {
 
 <template>
   <ListLayout>
-    <div class="super-wrapper">
+    <div class="mx-auto max-w-[960px]">
       <div class="mb-4 text-xl font-bold">記事検索</div>
 
       <input type="text" v-model="form.query" placeholder="キーワードで検索" @keyup.enter="search" class="text-input" />
@@ -51,11 +51,6 @@ const search = () => {
   height: 30px;
   width: 450px;
   border: 2px solid var(--border-color);
-}
-
-.super-wrapper {
-  max-width: 960px;
-  margin: 0 auto;
 }
 
 </style>

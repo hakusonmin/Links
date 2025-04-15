@@ -17,11 +17,11 @@ const props = defineProps({
       <img src="/images/Thumbnail.png" />
       <div class="list-text">
         <div class="fuga">
-          <div class="flex mx-2 h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
+          <div class="flex mx-2 h-6 w-6 items-center justify-center rounded-md bg-black  text-white ">
             {{ user.name.charAt(0).toUpperCase() }}
           </div>
           <div class="mx-1">{{ user.name }}</div>
-          <div class="mx-1">{{ user.followers }} Likes</div>
+          <div class="mx-1">{{ user.followers }} Followers</div>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@ const props = defineProps({
 .user-card {
   box-sizing: border-box;
   width: 485px;
-  height: 80px;
+  height: 40px;
   margin: 10px auto;
   border: 2px solid var(--border-color);
   display: flex;
@@ -54,7 +54,7 @@ const props = defineProps({
 }
 
 .list-text {
-  padding: 10px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -62,17 +62,14 @@ const props = defineProps({
   word-break: break-word;
 }
 
-.moe {
-  text-align: left;
-  font-size: 14px;
-  font-weight: bold;
-}
-
 .fuga {
-  text-align: right;
+  text-align: center;
   font-size: 14px;
+  /* これないと中央揃えにならない.. */
+  align-items: center;
   font-weight: bold;
   display: flex;
-  justify-content: right;
+  margin-left: 60px;
+  justify-content: left;
 }
 </style>

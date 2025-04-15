@@ -12,7 +12,7 @@ import { Link } from '@inertiajs/vue3';
       <nav>
         <ul>
           <li>
-            <Link href="mypage/about">Linksとは？</Link>
+            <Link href="/about">Linksとは？</Link>
           </li>
           <li>
             <Link :href="route('login')" method="get" class="link">ログイン</Link>

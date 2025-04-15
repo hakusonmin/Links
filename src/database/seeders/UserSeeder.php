@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         'email' => 'hoge@gmail.com',
         'password' => Hash::make('hogehoge'),
         'is_admin' => true,
-        'followers' => 0,
+        'followers' => 3,
         'github_url' => 'https://example.com',
         'x_url' => 'https://example.com',
         'another_url' => 'https://example.com',
@@ -35,12 +35,12 @@ class UserSeeder extends Seeder
         'profile_text' => 'こんにちは田中太郎2です。',
         'email' => 'fuga@gmail.com',
         'password' => Hash::make('fugafuga'),
-        'followers' => 0,
+        'followers' => 11,
         'github_url' => 'https://example.com',
         'x_url' => 'https://example.com',
         'another_url' => 'https://example.com',
         'is_admin' => false,
-        'created_at' => '2021/01/01 11:11:11'
+        'created_at' => '2021/01/03 11:11:11'
       ],
       [
         'id' => 3,
@@ -49,11 +49,24 @@ class UserSeeder extends Seeder
         'email' => 'fuga1@gmail.com',
         'password' => Hash::make('fugafuga1'),
         'is_admin' => false,
-        'followers' => 0,
+        'followers' => 10,
         'github_url' => 'https://example.com',
         'x_url' => 'https://example.com',
         'another_url' => 'https://example.com',
-        'created_at' => '2021/01/01 11:11:11'
+        'created_at' => '2021/01/04 11:11:11'
+      ],
+      [
+        'id' => 4,
+        'name' => 'fuga4',
+        'profile_text' => 'こんにちは田中太郎4です。',
+        'email' => 'fuga4@gmail.com',
+        'password' => Hash::make('fugafuga4'),
+        'is_admin' => false,
+        'followers' => 19,
+        'github_url' => 'https://example.com',
+        'x_url' => 'https://example.com',
+        'another_url' => 'https://example.com',
+        'created_at' => '2020/01/04 11:11:11'
       ],
     ]);
   }

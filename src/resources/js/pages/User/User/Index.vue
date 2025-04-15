@@ -1,6 +1,5 @@
 <script setup>
 import CardTitle from '@/components/ui/card/CardTitle.vue';
-import BackButton from '@/mycomponents/components/Buttons/BackButton.vue';
 import CardLink from '@/mycomponents/components/Buttons/CardLink.vue';
 import Card from '@/mycomponents/components/Cards/Card.vue';
 import CardContainer from '@/mycomponents/components/Cards/CardContainer.vue';
@@ -26,7 +25,6 @@ import ListLayout from '@/mycomponents/layouts/ListLayout.vue';
         </CardLink>
       </Card>
     </CardContainer>
-    <BackButton />
   </ListLayout>
 </template>
 
