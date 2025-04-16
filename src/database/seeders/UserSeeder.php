@@ -18,12 +18,13 @@ class UserSeeder extends Seeder
     DB::table('users')->insert([
       [
         'id' => 1,
-        'name' => 'hoge',
-        'profile_text' => 'こんにちは田中太郎です。',
+        'name' => 'Tanaka Taro',
+        // ダブルクオートじゃないと\nがうごかないよ..
+        'profile_text' => "こんにちは田中太郎です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'hoge@gmail.com',
         'password' => Hash::make('hogehoge'),
         'is_admin' => true,
-        'followers' => 3,
+        'followers' => 1000,
         'github_url' => 'https://example.com',
         'x_url' => 'https://example.com',
         'another_url' => 'https://example.com',
@@ -31,8 +32,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 2,
-        'name' => 'fuga',
-        'profile_text' => 'こんにちは田中太郎2です。',
+        'name' => 'Tanaka Taro2',
+        'profile_text' => "こんにちは田中太郎2です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga@gmail.com',
         'password' => Hash::make('fugafuga'),
         'followers' => 11,
@@ -44,8 +45,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 3,
-        'name' => 'fuga1',
-        'profile_text' => 'こんにちは田中太郎3です。',
+        'name' => 'Tanaka Taro3',
+        'profile_text' => "こんにちは田中太郎3です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga1@gmail.com',
         'password' => Hash::make('fugafuga1'),
         'is_admin' => false,
@@ -57,8 +58,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 4,
-        'name' => 'fuga4',
-        'profile_text' => 'こんにちは田中太郎4です。',
+        'name' => 'Tanaka Taro4',
+        'profile_text' => "こんにちは田中太郎4です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga4@gmail.com',
         'password' => Hash::make('fugafuga4'),
         'is_admin' => false,

@@ -29,6 +29,8 @@ const isLoggedIn = computed(() => !!page.props.auth.user);
 .main-wrapper {
   width: 100%;
   background-color: rgb(233, 229, 222);
+  /* ここで強制的にテキストの色を変えている */
+  color: var(--font-black);
 }
 
 .line {

@@ -27,7 +27,7 @@ const search = () => {
     <div class="mx-auto max-w-[960px]">
       <div class="mb-4 text-xl font-bold">記事検索</div>
 
-      <input type="text" v-model="form.query" placeholder="キーワードで検索" @keyup.enter="search" class="text-input" />
+      <input type="text" v-model="form.query" placeholder="キーワードを入力してください" @keyup.enter="search" class="text-input" />
       <button @click="search"></button>
 
       <div class="mx-auto mb-1 mt-10 w-[485px] text-right">
@@ -43,7 +43,6 @@ const search = () => {
 </template>
 
 <style scoped>
-
 .text-input {
   color: var(--black);
   font-weight: bold;
@@ -52,5 +51,4 @@ const search = () => {
   width: 450px;
   border: 2px solid var(--border-color);
 }
-
 </style>

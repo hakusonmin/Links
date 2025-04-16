@@ -32,4 +32,5 @@ class UserController extends Controller
             'filters' => $request->only(['query', 'sort']),
         ]);
     }
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MyPageUserController;
 use App\Http\Controllers\UserController;
@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
 
     #記事関係ルート
-    Route::get('articles/create', [ArticleController::class, 'create'])->name('articles.create');
-    Route::post('articles', [ArticleController::class, 'store'])->name('articles.store');
-    Route::get('articles/{articles}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
-    Route::put('articles/{articles}', [ArticleController::class, 'update'])->name('articles.update');
-    Route::delete('articles/{articles}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::prefix('users/{user}')->scopeBindings()->group(function () {
+        Route::get('articles/create', [UserArticleController::class, 'create'])->name('articles.create');
+        Route::post('articles', [UserArticleController::class, 'store'])->name('articles.store');
+        Route::get('articles/{articles}/edit', [UserArticleController::class, 'edit'])->name('articles.edit');
+        Route::put('articles/{articles}', [UserArticleController::class, 'update'])->name('articles.update');
+        Route::delete('articles/{articles}', [UserArticleController::class, 'destroy'])->name('articles.destroy');
+    });
 
     #コメント関係ルート
     Route::prefix('articles/{article}')->scopeBindings()->group(function () {
@@ -26,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
 
     //アカウント関係ルート
     Route::prefix('users/{user}')->group(function () {
-        Route::get('', [UserController::class, 'index'])->name('users.index');
+        Route::get('', [UserController::class, 'show'])->name('users.show');
         Route::post('like', [UserController::class, 'like'])->name('like');
         Route::delete('unlike', [UserController::class, 'unlike'])->name('unlike');
         Route::post('follow', [UserController::class, 'follow'])->name('follow');

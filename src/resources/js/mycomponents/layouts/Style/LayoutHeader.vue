@@ -15,7 +15,7 @@ import { Link } from '@inertiajs/vue3';
             <Link href="/about">Linksとは？</Link>
           </li>
           <li>
-            <Link :href="route('mypage.dashboard')" method="get" class="link">マイページ</Link>
+            <Link :href="route('mypage.dashboard')" method="get" class="link">ダッシュボード</Link>
           </li>
           <li>
             <Link :href="route('logout')" method="post" class="link">ログアウト</Link>

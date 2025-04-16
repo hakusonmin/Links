@@ -2,7 +2,7 @@
   <BaseLayout>
     <div class="mx-auto my-20 max-w-[960px] text-center">
       <div class="mx-auto font-bold text-3xl mb-6">Linksとは？</div>
-      <div class="mt-4 font-bold text-[18px] mb-10">
+      <div class="mt-4 font-bold text-[18px] mb-10 ">
         Linksは「おすすめの記事とそれに関する感想や考察」を<br />
         まとめて記事として投稿できるサービスです。<br />
         読んだ記事や本のリンクとともに感想や考察を記事として投稿してみましょう！

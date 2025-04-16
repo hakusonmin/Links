@@ -13,6 +13,7 @@ import { Link } from '@inertiajs/vue3';
   margin: 10px;
   padding: 8px 16px;
   color: var(--white);
+  font-weight: bold;
   background-color: var(--black);
 }
 </style>

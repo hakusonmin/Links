@@ -15,7 +15,6 @@ import BaseLayout from './BaseLayout.vue';
 <style scoped>
 .content {
   background-color: var(--light-gray);
-  padding: 20px;
 }
 
 .wrapper {

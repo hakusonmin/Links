@@ -2,6 +2,7 @@
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,6 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('articles/search', [ArticleController::class, 'search'])->name('articles.search');
-Route::get('articles/{articles}', [ArticleController::class, 'show'])->name('articles.show');
 Route::get('/genres/{genre}/articles', [ArticleController::class, 'genre'])->name('articles.genre');
 
 Route::prefix('articles/{article}')->scopeBindings()->group(function () {
@@ -21,4 +21,9 @@ Route::prefix('articles/{article}')->scopeBindings()->group(function () {
 });
 
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
-Route::get('users/{users}', [UserController::class, 'show'])->name('users.show');
+
+
+Route::prefix('users/{user}')->scopeBindings()->group(function () {
+    Route::get('articles', [UserArticleController::class, 'index'])->name('users.articles.index');
+    Route::get('articles/{article}', [UserArticleController::class, 'show'])->name('users.articles.show');
+});
