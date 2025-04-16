@@ -68,7 +68,7 @@ const closeModal = () => {
             </DialogClose>
 
             <Button variant="destructive" :disabled="form.processing">
-              <button type="submit">削除する</button>
+              <button  type="submit">削除する</button>
             </Button>
           </DialogFooter>
         </form>

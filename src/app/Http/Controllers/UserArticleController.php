@@ -36,7 +36,7 @@ class UserArticleController extends Controller
 
     public function show(User $user, Article $article)
     {
-        $article->load(['user', 'links']);
+        $article->load(['user', 'links', 'genres']);
 
         $converter = new CommonMarkConverter([
             'html_input' => 'strip',

@@ -19,9 +19,9 @@ import BaseLayout from './BaseLayout.vue';
 
 .wrapper {
   max-width: 960px;
-  margin: 3dvw auto;
+  margin: 0 auto;
   text-align: center;
-  padding: 4dvw;
+  padding: 1dvw 4dvw;
   color: var(--font-black);
 }
 </style>

@@ -29,24 +29,25 @@ const submit = () => {
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name">氏名</Label>
-                    <Input id="name" type="text" required autofocus :tabindex="1" autocomplete="name" v-model="form.name" placeholder="山田 太郎" />
+                    <Label class="font-bold" for="name">氏名</Label>
+                    <Input id="name" type="text" class=" border-gray-500" required autofocus :tabindex="1" autocomplete="name" v-model="form.name" placeholder="山田 太郎" />
                     <InputError :message="form.errors.name" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="email">メールアドレス</Label>
-                    <Input id="email" type="email" required :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
+                    <Label class="font-bold" for="email">メールアドレス</Label>
+                    <Input id="email" type="email" required class=" border-gray-500" :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
                     <InputError :message="form.errors.email" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password">パスワード</Label>
+                    <Label class="font-bold" for="password">パスワード</Label>
                     <Input
                         id="password"
                         type="password"
                         required
                         :tabindex="3"
+                        class=" border-gray-500"
                         autocomplete="new-password"
                         v-model="form.password"
                         placeholder="パスワード"
@@ -55,12 +56,13 @@ const submit = () => {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password_confirmation">パスワードを再度入力してください</Label>
+                    <Label class="font-bold" for="password_confirmation">パスワードを再度入力してください</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
                         required
                         :tabindex="4"
+                        class=" border-gray-500"
                         autocomplete="new-password"
                         v-model="form.password_confirmation"
                         placeholder="パスワード"
@@ -74,7 +76,7 @@ const submit = () => {
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground font-bold">
                 すでにアカウントを持っていますか？
                 <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">ログイン</TextLink>
             </div>

@@ -60,13 +60,13 @@ const updatePassword = () => {
 
                 <form @submit.prevent="updatePassword" class="space-y-6">
                     <div class="grid gap-2">
-                        <Label for="current_password">現在のパスワード</Label>
+                        <Label class="font-bold" for="current_password">現在のパスワード</Label>
                         <Input
                             id="current_password"
                             ref="currentPasswordInput"
                             v-model="form.current_password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full border-gray-500"
                             autocomplete="current-password"
                             placeholder="現在のパスワード"
                         />
@@ -74,13 +74,13 @@ const updatePassword = () => {
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password">新しいパスワード</Label>
+                        <Label class="font-bold" for="password">新しいパスワード</Label>
                         <Input
                             id="password"
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full border-gray-500"
                             autocomplete="new-password"
                             placeholder="新しいパスワード"
                         />
@@ -88,12 +88,12 @@ const updatePassword = () => {
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password_confirmation">再度新しいパスワードを入力してください</Label>
+                        <Label class="font-bold" for="password_confirmation">再度新しいパスワードを入力してください</Label>
                         <Input
                             id="password_confirmation"
                             v-model="form.password_confirmation"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full border-gray-500"
                             autocomplete="new-password"
                             placeholder="新しいパスワード"
                         />

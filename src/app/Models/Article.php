@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Article extends Model
 {
@@ -41,5 +42,18 @@ class Article extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'article_genres');
+    }
+
+    //↓Inertiaの場合はこれを定義(そして article.formatted_create_at みたいに呼ぶ)
+    protected $appends = ['formatted_created_at', 'formatted_updated_at'];
+
+    public function getFormattedCreatedAtAttribute(): string
+    {
+        return Carbon::parse($this->created_at)->format('Y年m月d日');
+    }
+
+    public function getFormattedUpdatedAtAttribute(): string
+    {
+        return Carbon::parse($this->updated_at)->format('Y年m月d日');
     }
 }

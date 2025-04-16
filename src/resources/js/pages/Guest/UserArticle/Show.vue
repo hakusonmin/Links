@@ -2,6 +2,7 @@
 <script setup>
 import BaseLayout from '@/mycomponents/layouts/BaseLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import { Link as LinkIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -16,53 +17,82 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
 <template>
   <BaseLayout>
     <div class="mx-auto my-10 max-w-[960px] space-y-8">
-      <div class="border border-gray-500 bg-gray-50 p-4">
+      <div class="border-2 border-gray-500 bg-gray-50 p-4">
+        <!-- ユーザー情報 -->
+        <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
+          <div class="mb-3 flex justify-start text-center">
+            <div class="flex h-6 w-6 items-center justify-center rounded-md bg-black font-bold text-white">
+              {{ article.user.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="flex text-center font-bold">
+              <div class="mx-2 my-auto text-center">{{ article.user.name }}</div>
+            </div>
+          </div>
+        </Link>
+        <!-- 記事タイトル -->
         <h1 class="text-xl font-bold">{{ article.title }}</h1>
-        <div class="my-2 flex flex-wrap gap-2">
-          <span v-for="tag in article.tags" :key="tag" class="rounded bg-black px-2 py-1 text-sm text-white">{{ tag }}</span>
+
+        <!-- ジャンル -->
+        <div class="my-2 flex flex-wrap justify-end gap-4">
+          <span v-for="genre in article.genres" :key="genre" class="bg-black px-4 py-1 text-sm font-bold text-white">{{ genre.name }}</span>
         </div>
-        <div class="text-sm text-gray-700">優先度：{{ article.priority }} {{ article.likes }} likes 投稿日：{{ article.created_at }}</div>
+        <!-- 記事情報 -->
+        <div class="flex justify-end gap-4 font-bold text-black text-gray-700">
+          <div>優先度：{{ article.priority }}</div>
+          <div>{{ article.likes }} likes</div>
+          <div>投稿日：{{ article.formatted_created_at }}</div>
+          <div>更新日：{{ article.formatted_updated_at }}</div>
+        </div>
       </div>
 
       <!-- リンク -->
       <div>
         <h2 class="font-bold">この記事のリンク一覧(読んでみよう!!)</h2>
-        <div v-for="link in article.links" :key="link.id" class="my-2 flex items-center gap-2">
-          <Link :href="link.link_url" class="flex w-full items-center gap-2 border border-gray-500 p-2">
-            <span class="text-sm">🔗</span>
+        <div v-for="link in article.links" :key="link.id" class="my-2 flex items-center gap-2 font-bold">
+          <a
+            :href="link.link_url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-full items-center gap-2 border-2 border-gray-500 bg-white p-2"
+          >
+            <LinkIcon class="h-5 w-5" />
             <span>{{ link.title }}</span>
-          </Link>
+          </a>
         </div>
       </div>
 
       <!-- 本文 -->
       <div>
         <h2 class="text-lg font-bold">本文</h2>
-        <div class="">
-          <div class="prose max-w-none">
+        <div class="border-2 border-gray-500 bg-white px-6">
+          <div class="prose max-w-none text-black">
             <div v-html="article.html_content"></div>
           </div>
         </div>
       </div>
 
-      <!-- アクション -->
-      <div class="flex gap-4">
-        <button class="rounded bg-black px-4 py-2 font-bold text-white">いいねする</button>
-        <button class="rounded bg-black px-4 py-2 font-bold text-white">コメントする</button>
+      <!-- ボタン -->
+      <div class="flex justify-center gap-4">
+        <button class="bg-black px-4 py-2 font-bold text-white">いいねする</button>
+        <button class="bg-black px-4 py-2 font-bold text-white">コメントする</button>
       </div>
 
       <!-- コメント -->
       <div class="mt-8">
         <h2 class="mb-2 text-xl font-bold">コメント一覧</h2>
-        <div v-for="comment in comments" :key="comment.id" class="mb-2 border border-gray-400 bg-white p-3">
-          <div class="flex items-center gap-2 font-bold">
-            <span class="flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
-              {{ comment.user.name.charAt(0).toUpperCase() }}
-            </span>
-            <span>{{ comment.user.name }}</span>
-            <button v-if="authUser?.id === comment.user.id" class="ml-auto text-sm text-blue-500">編集する</button>
-          </div>
-          <div class="mt-1 whitespace-pre-line text-sm">
+        <div v-for="comment in comments" :key="comment.id" class="mb-2 border-2 border-gray-500 bg-white p-3">
+          <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
+            <div class="flex items-center gap-2 font-bold">
+              <span class="flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
+                {{ comment.user.name.charAt(0).toUpperCase() }}
+              </span>
+              <span>{{ comment.user.name }}</span>
+              <button v-if="authUser?.id === comment.user.id" class="ml-auto mr-1 bg-black px-4 py-1 text-right text-[14px] text-white">
+                編集する
+              </button>
+            </div>
+          </Link>
+          <div class="mt-2 whitespace-pre-line text-sm">
             {{ comment.content }}
           </div>
         </div>

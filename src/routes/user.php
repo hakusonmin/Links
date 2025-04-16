@@ -28,7 +28,6 @@ Route::middleware(['auth'])->group(function () {
 
     //アカウント関係ルート
     Route::prefix('users/{user}')->group(function () {
-        Route::get('', [UserController::class, 'show'])->name('users.show');
         Route::post('like', [UserController::class, 'like'])->name('like');
         Route::delete('unlike', [UserController::class, 'unlike'])->name('unlike');
         Route::post('follow', [UserController::class, 'follow'])->name('follow');

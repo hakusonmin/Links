@@ -38,10 +38,11 @@ const submit = () => {
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="email">メールアドレス</Label>
+                    <Label for="email" class="font-bold">メールアドレス</Label>
                     <Input
                         id="email"
                         type="email"
+                        class=" border-gray-500"
                         required
                         autofocus
                         :tabindex="1"
@@ -54,11 +55,12 @@ const submit = () => {
 
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
-                        <Label for="password">パスワード</Label>
+                        <Label for="password" class="font-bold">パスワード</Label>
                     </div>
                     <Input
                         id="password"
                         type="password"
+                        class=" border-gray-500"
                         required
                         :tabindex="2"
                         autocomplete="current-password"
@@ -71,17 +73,17 @@ const submit = () => {
                 <div class="flex items-center justify-between" :tabindex="3">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox id="remember" v-model:checked="form.remember" :tabindex="4" class="bg-white"/>
-                        <span>このブラウザで記憶する</span>
+                        <span class="font-bold">このブラウザで記憶する</span>
                     </Label>
                 </div>
 
                 <Button type="submit" class="mt-4 w-full bg-black" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin font-bold" />
                     ログイン
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground font-bold">
                 アカウントを持っていませんか？
                 <TextLink :href="route('register')" :tabindex="5">サインアップ</TextLink>
             </div>
