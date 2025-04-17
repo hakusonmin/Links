@@ -1,13 +1,38 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+
+const page = usePage();
+const show = ref(false);
+
+watch(
+  () => page.props.flash.message,
+  (newMessage) => {
+    if (newMessage) {
+      show.value = true;
+      setTimeout(() => {
+        show.value = false;
+      }, 3000);
+    }
+  },
+  { immediate: true }
+);
+</script>
 
 <template>
-  <div v-if="$page.props.flash.status === 'success'" class="message">
-    {{ $page.props.flash.message }}
-  </div>
-  <div v-if="$page.props.flash.status === 'danger'" class="message">
-    {{ $page.props.flash.message }}
-  </div>
-</template>
+    <div
+      v-if="show && $page.props.flash.status === 'success'"
+      class="message"
+    >
+      {{ $page.props.flash.message }}
+    </div>
+    <div
+      v-if="show && $page.props.flash.status === 'danger'"
+      class="message"
+    >
+      {{ $page.props.flash.message }}
+    </div>
+  </template>
 
 <style scoped>
 .message {

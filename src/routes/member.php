@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserArticleController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MyPageUserController;
 use App\Http\Controllers\UserController;
@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     #記事関係ルート
-    Route::get('articles/create', [UserArticleController::class, 'create'])->name('articles.create');
-    Route::post('articles', [UserArticleController::class, 'store'])->name('articles.store');
-    Route::get('articles/{article}/edit', [UserArticleController::class, 'edit'])->name('articles.edit');
-    Route::put('articles/{article}', [UserArticleController::class, 'update'])->name('articles.update');
-    Route::delete('articles/{article}', [UserArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::get('articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    //CRUD以外
+    Route::put('articles/{article}/toggle-publish', [ArticleController::class, 'togglePublish'])->name('articles.togglePublish');
+    Route::post('/articles/{article}/like', [ArticleController::class, 'like'])->name('articles.like');
+    Route::delete('/articles/{article}/unlike', [ArticleController::class, 'unlike'])->name('articles.unlike');
 
     #コメント関係ルート
     Route::prefix('articles/{article}')->scopeBindings()->group(function () {
@@ -23,10 +27,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     });
 
-    //アカウント関係ルート
+    //フォロー関係ルート
     Route::prefix('users/{user}')->group(function () {
-        Route::post('like', [UserController::class, 'like'])->name('like');
-        Route::delete('unlike', [UserController::class, 'unlike'])->name('unlike');
         Route::post('follow', [UserController::class, 'follow'])->name('follow');
         Route::delete('unfollow', [UserController::class, 'unfollow'])->name('unfollow');
     });

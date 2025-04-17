@@ -17,7 +17,7 @@ const props = defineProps({
           </div>
           <div class="flex justify-end text-sm font-bold">
             <div class="mx-1">優先度 {{ article.priority }}</div>
-            <div class="mx-1">{{ article.likes }} Likes</div>
+            <div class="mx-1">{{ article.likes_count }} Likes</div>
           </div>
         </div>
       </Link>

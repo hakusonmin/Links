@@ -1,5 +1,7 @@
 <!-- resources/js/Pages/Guest/Article/Show.vue -->
 <script setup>
+import LikeButton from '@/mycomponents/components/Articles/LikeButton.vue';
+import TogglePublishButton from '@/mycomponents/components/Articles/TogglePublishButton.vue';
 import BaseLayout from '@/mycomponents/layouts/BaseLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { Link as LinkIcon } from 'lucide-vue-next';
@@ -12,6 +14,12 @@ const props = defineProps({
 });
 
 const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id);
+
+const onDelete = (event) => {
+  if (window.confirm('本当にこの記事を削除しますか？')) {
+    event.target.submit();
+  }
+};
 </script>
 
 <template>
@@ -19,7 +27,7 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
     <div class="mx-auto my-10 max-w-[960px] space-y-8">
       <div class="border-2 border-gray-500 bg-gray-50 p-4">
         <!-- ユーザー情報 -->
-        <Link as="a" :href="route('articles.index', { user: article.user.id })">
+        <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
           <div class="mb-3 flex justify-start text-center">
             <div class="flex h-6 w-6 items-center justify-center rounded-md bg-black font-bold text-white">
               {{ article.user.name.charAt(0).toUpperCase() }}
@@ -34,12 +42,14 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
 
         <!-- ジャンル -->
         <div class="my-2 flex flex-wrap justify-end gap-4">
-          <span v-for="genre in article.genres" :key="genre" class="bg-black px-4 py-1 text-sm font-bold text-white">{{ genre.name }}</span>
+          <span v-for="genre in article.genres" :key="genre" class="bg-black px-4 py-1 text-sm font-bold text-white">
+            {{ genre.name }}
+          </span>
         </div>
         <!-- 記事情報 -->
         <div class="flex justify-end gap-4 font-bold text-black text-gray-700">
           <div>優先度：{{ article.priority }}</div>
-          <div>{{ article.likes }} likes</div>
+          <div>{{ article.likes_count }} likes</div>
           <div>投稿日：{{ article.formatted_created_at }}</div>
           <div>更新日：{{ article.formatted_updated_at }}</div>
         </div>
@@ -73,23 +83,43 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
 
       <!-- ボタン -->
       <div class="flex justify-center gap-4">
-        <button class="bg-black px-4 py-2 font-bold text-white">いいねする</button>
-        <button class="bg-black px-4 py-2 font-bold text-white">コメントする</button>
+        <template v-if="isOwnArticle">
+          <!-- ログイン中のユーザーが投稿者の場合 -->
+          <Link :href="route('articles.edit', { article: article.id })" class="bg-black px-4 py-2 font-bold text-white"> 編集する </Link>
+          <form :action="route('articles.destroy', { article: article.id })" method="post" @submit.prevent="onDelete">
+            <input type="hidden" name="_method" value="delete" />
+            <button type="submit" class="bg-black px-4 py-2 font-bold text-white">削除する</button>
+          </form>
+          <TogglePublishButton :article="article" />
+        </template>
+
+        <template v-else>
+          <!-- 他ユーザーの場合 -->
+          <LikeButton :article-id="article.id" :is-liked="article.isLiked" />
+          <Link as="button" :href="route('comments.create', { article: article.id })" class="bg-black px-4 py-2 font-bold text-white"
+            >コメントする</Link
+          >
+        </template>
       </div>
 
       <!-- コメント -->
       <div class="mt-8">
         <h2 class="mb-2 text-xl font-bold">コメント一覧</h2>
         <div v-for="comment in comments" :key="comment.id" class="mb-2 border-2 border-gray-500 bg-white p-3">
-          <Link as="a" :href="route('articles.index', { user: article.user.id })">
+          <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
             <div class="flex items-center gap-2 font-bold">
               <span class="flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
                 {{ comment.user.name.charAt(0).toUpperCase() }}
               </span>
               <span>{{ comment.user.name }}</span>
-              <button v-if="authUser?.id === comment.user.id" class="ml-auto mr-1 bg-black px-4 py-1 text-right text-[14px] text-white">
+              <Link
+                v-if="authUser?.id === comment.user.id"
+                as="button"
+                :href="route('comments.edit', { article: article.id, comment: comment.id })"
+                class="ml-auto mr-1 bg-black px-4 py-1 text-right text-[14px] text-white"
+              >
                 編集する
-              </button>
+              </Link>
             </div>
           </Link>
           <div class="mt-2 whitespace-pre-line text-sm">

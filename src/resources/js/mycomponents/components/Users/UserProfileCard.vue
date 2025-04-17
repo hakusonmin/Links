@@ -9,7 +9,7 @@
         <div class="flex text-center">
           <div class="flex text-center text-xl font-bold">
             <div class="mx-3 my-auto text-center">{{ user.name }}</div>
-            <div class="mx-3 my-auto text-center">{{ user.followers }} Followers</div>
+            <div class="mx-3 my-auto text-center">{{ user.followers_count }} Followers</div>
           </div>
           <div class="mx-4 my-2 flex items-center gap-2 text-xl">
             <a v-if="user.github_url" :href="user.github_url" target="_blank">

@@ -16,7 +16,8 @@ class Article extends Model
         'title',
         'content',
         'priority',
-        'likes'
+        'likes_count',
+        'is_published'
     ];
 
     public function user()
@@ -32,6 +33,12 @@ class Article extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    //ポイント
+    public function isLikedBy(User $user): bool
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 
     public function links()

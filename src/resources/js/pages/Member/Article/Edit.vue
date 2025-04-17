@@ -1,36 +1,29 @@
-<template>
-  <FormLayout>
-    <HeaderTitle title="小説編集" />
-    <form @submit.prevent="submit">
-      <InputField label="小説名" v-model="form.title" />
-      <TextField label="内容" v-model="form.content" />
-      <SubmitButton>更新</SubmitButton>
-      <BackButton />
-    </form>
-  </FormLayout>
-</template>
-
 <script setup>
-import BackButton from '@/mycomponents/components/Buttons/BackButton.vue';
-import SubmitButton from '@/mycomponents/components/Buttons/SubmitButton.vue';
-import InputField from '@/mycomponents/components/Forms/InputField.vue';
-import TextField from '@/mycomponents/components/Forms/TextField.vue';
-import HeaderTitle from '@/mycomponents/components/Styles/HeaderTitle.vue';
-import FormLayout from '@/mycomponents/layouts/FormLayout.vue';
-import { useForm, usePage } from '@inertiajs/vue3';
+import ArticleForm from '@/mycomponents/components/Articles/ArticleForm.vue';
+import BaseLayout from '@/mycomponents/layouts/BaseLayout.vue';
+import { useForm } from '@inertiajs/vue3';
 
-// フォームデータの取得（既存のデータを編集する）
-const { props } = usePage();
+const props = defineProps({ article: Object });
 
-// 既存データをセット
 const form = useForm({
-  title: props.article.title ?? '',
-  content: props.article.content ?? '',
+  title: props.article.title,
+  priority: props.article.priority,
+  genres: [...props.article.genres.map(g => g.name)],
+  links: [...props.article.links],
+  content: props.article.content,
 });
 
 const submit = () => {
-  form.put(route('user.articles.update', { chapter: props.article.chapter.id, article: props.article.id }));
+  form.put(route('articles.update', props.article.id));
 };
+
 </script>
 
-<style scoped></style>
+<template>
+  <BaseLayout>
+    <div class="mx-auto my-[40px] max-w-[1400px]">
+    <h1 class="text-xl font-bold my-6">記事の編集</h1>
+    <ArticleForm :form="form" :onSubmit="submit" submitLabel="更新する" />
+    </div>
+  </BaseLayout>
+</template>

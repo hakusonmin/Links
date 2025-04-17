@@ -23,7 +23,7 @@ class User extends Authenticatable
         'profile_text',
         'password',
         'is_admin',
-        'followers',
+        'followers_count',
         'github_url',
         'x_url',
         'another_url',
@@ -82,5 +82,10 @@ class User extends Authenticatable
     public function followings()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id');
+    }
+
+    public function isFollowedBy(User $user): bool
+    {
+        return $this->followers()->where('follower_id', $user->id)->exists();
     }
 }

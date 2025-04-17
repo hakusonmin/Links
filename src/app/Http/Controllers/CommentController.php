@@ -2,65 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Article;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(Article $article)
     {
-        //
+        return Inertia::render('Member/Comment/Create', [
+            'article' => $article,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CommentRequest $request, Article $article)
     {
-        //
+        $article->comments()->create([
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('articles.show', $article)
+            ->with('message', 'コメントを投稿しました')->with('status', 'success');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCommentRequest $request)
+    public function edit(Article $article, Comment $comment)
     {
-        //
+        $this->authorize('update', $comment);
+
+        return Inertia::render('Member/Comment/Edit', [
+            'article' => $article,
+            'comment' => $comment,
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comment $comment)
+    public function update(CommentRequest $request, Article $article, Comment $comment)
     {
-        //
+        $this->authorize('update', $comment);
+
+        $comment->update([
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('articles.show', $article)
+            ->with('message', 'コメントを更新しました')->with('status', 'success');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
+    public function destroy(Article $article, Comment $comment)
     {
-        //
-    }
+        $this->authorize('delete', $comment);
+        $comment->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCommentRequest $request, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comment $comment)
-    {
-        //
+        return redirect()->route('articles.show', $article)
+            ->with('message', 'コメントを削除しました')->with('status', 'success');
     }
 }
