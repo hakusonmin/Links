@@ -13,12 +13,12 @@ use League\CommonMark\CommonMarkConverter;
 
 class UserArticleController extends Controller
 {
-    public function index(User $user, Request $request)
+    public function index(Request $request)
     {
         $sort = $request->input('sort', 'priority');
 
         $articles = Article::with('user')
-            ->where('user_id', $user->id)
+            ->where('user_id', Auth::user()->id)
             ->when($sort === 'latest', fn($q) => $q->latest())
             ->when($sort === 'likes', fn($q) => $q->orderByDesc('likes'))
             ->when(
@@ -30,13 +30,13 @@ class UserArticleController extends Controller
             ->withQueryString();
 
         return Inertia::render('Guest/UserArticle/Index', [
-            'user' => $user,
+            'user' => Auth::user(),
             'articles' => $articles,
             'filters' => $request->only('sort'),
         ]);
     }
 
-    public function show(User $user, Article $article)
+    public function show(Article $article)
     {
         $article->load(['user', 'links', 'genres']);
 
@@ -57,9 +57,11 @@ class UserArticleController extends Controller
         ]);
     }
 
-    public function create(User $user)
+    public function create()
     {
-        return Inertia::render('Member/UserArticle/Create');
+        return Inertia::render('Member/UserArticle/Create' ,[
+            'user' => Auth::user(),
+        ]);
     }
 
      // 登録処理
@@ -101,14 +103,14 @@ class UserArticleController extends Controller
      // 編集画面
      public function edit(Article $article)
      {
-         $this->authorize('update', $article);
-
          $article->load(['genres', 'links']);
 
-         return Inertia::render('Articles/Edit', [
+         return Inertia::render('Member/UserArticle/Edit', [
              'article' => $article,
              'genres' => Genre::all(),
+             'user' => Auth::user(),
          ]);
+
      }
 
      // 更新処理

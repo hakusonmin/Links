@@ -20,11 +20,12 @@ export default {
                 sm: 'calc(var(--radius) - 4px)',
             },
             colors: {
-
+                // カスタムカラー
                 black: 'var(--black)',
-                lightgray: 'var(--light-gray)',
+                lightGray: 'var(--light-gray)',
                 white: 'var(--white)',
-                fontblack: 'var(--font-black)',
+                fontBlack: 'var(--font-black)',
+                borderColor: 'var(--border-color)',
 
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',

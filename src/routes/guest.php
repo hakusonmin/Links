@@ -1,4 +1,5 @@
 <?php
+
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
@@ -14,6 +15,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('articles/search', [ArticleController::class, 'search'])->name('articles.search');
+
 Route::get('/genres/{genre}/articles', [ArticleController::class, 'genre'])->name('articles.genre');
 
 Route::prefix('articles/{article}')->scopeBindings()->group(function () {
@@ -22,7 +24,5 @@ Route::prefix('articles/{article}')->scopeBindings()->group(function () {
 
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 
-Route::prefix('users/{user}')->scopeBindings()->group(function () {
-    Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
-    Route::get('articles/{article}', [UserArticleController::class, 'show'])->name('articles.show');
-});
+Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
+Route::get('articles/{article}', [UserArticleController::class, 'show'])->name('articles.show');

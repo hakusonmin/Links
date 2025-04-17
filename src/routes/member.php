@@ -8,21 +8,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     #記事関係ルート
-    Route::prefix('users/{user}')->scopeBindings()->group(function () {
-        Route::get('articles/create', [UserArticleController::class, 'create'])->name('articles.create');
-        Route::post('articles', [UserArticleController::class, 'store'])->name('articles.store');
-        Route::get('articles/{articles}/edit', [UserArticleController::class, 'edit'])->name('articles.edit');
-        Route::put('articles/{articles}', [UserArticleController::class, 'update'])->name('articles.update');
-        Route::delete('articles/{articles}', [UserArticleController::class, 'destroy'])->name('articles.destroy');
-    });
+    Route::get('articles/create', [UserArticleController::class, 'create'])->name('articles.create');
+    Route::post('articles', [UserArticleController::class, 'store'])->name('articles.store');
+    Route::get('articles/{article}/edit', [UserArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('articles/{article}', [UserArticleController::class, 'update'])->name('articles.update');
+    Route::delete('articles/{article}', [UserArticleController::class, 'destroy'])->name('articles.destroy');
 
     #コメント関係ルート
     Route::prefix('articles/{article}')->scopeBindings()->group(function () {
         Route::get('comments/create', [CommentController::class, 'create'])->name('comments.create');
         Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
-        Route::get('comments/{comments}/edit', [CommentController::class, 'edit'])->name('comments.edit');
-        Route::put('comments/{comments}', [CommentController::class, 'update'])->name('comments.update');
-        Route::delete('comments/{comments}', [CommentController::class, 'destroy'])->name('comments.destroy');
+        Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+        Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+        Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     });
 
     //アカウント関係ルート
