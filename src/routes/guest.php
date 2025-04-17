@@ -23,6 +23,6 @@ Route::prefix('articles/{article}')->scopeBindings()->group(function () {
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 
 Route::prefix('users/{user}')->scopeBindings()->group(function () {
-    Route::get('articles', [UserArticleController::class, 'index'])->name('users.articles.index');
-    Route::get('articles/{article}', [UserArticleController::class, 'show'])->name('users.articles.show');
+    Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
+    Route::get('articles/{article}', [UserArticleController::class, 'show'])->name('articles.show');
 });

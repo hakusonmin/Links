@@ -19,7 +19,7 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
     <div class="mx-auto my-10 max-w-[960px] space-y-8">
       <div class="border-2 border-gray-500 bg-gray-50 p-4">
         <!-- ユーザー情報 -->
-        <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
+        <Link as="a" :href="route('articles.index', { user: article.user.id })">
           <div class="mb-3 flex justify-start text-center">
             <div class="flex h-6 w-6 items-center justify-center rounded-md bg-black font-bold text-white">
               {{ article.user.name.charAt(0).toUpperCase() }}
@@ -81,7 +81,7 @@ const isOwnArticle = computed(() => props.authUser?.id === props.article.user.id
       <div class="mt-8">
         <h2 class="mb-2 text-xl font-bold">コメント一覧</h2>
         <div v-for="comment in comments" :key="comment.id" class="mb-2 border-2 border-gray-500 bg-white p-3">
-          <Link as="a" :href="route('users.articles.index', { user: article.user.id })">
+          <Link as="a" :href="route('articles.index', { user: article.user.id })">
             <div class="flex items-center gap-2 font-bold">
               <span class="flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
                 {{ comment.user.name.charAt(0).toUpperCase() }}

@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
-
     #記事関係ルート
     Route::prefix('users/{user}')->scopeBindings()->group(function () {
         Route::get('articles/create', [UserArticleController::class, 'create'])->name('articles.create');

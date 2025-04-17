@@ -9,7 +9,7 @@ use Inertia\Inertia;
 class MyPageUserController extends Controller
 {
     public function dashboard()  {
-        return Inertia::render('User/MyPage/Dashboard', [
+        return Inertia::render('Member/MyPage/Dashboard', [
             'user' => Auth::user(),
         ]);
     }

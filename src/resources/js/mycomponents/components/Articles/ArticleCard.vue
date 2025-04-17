@@ -9,7 +9,7 @@ const props = defineProps({
 <template>
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
     <div v-for="article in articles" :key="article.id" class="m-3 border-2 border-gray-400 bg-white">
-      <Link as="a" :href="route('users.articles.show', { user: article.user.id, article: article.id  })">
+      <Link as="a" :href="route('articles.show', { user: article.user.id, article: article.id  })">
         <img src="/images/Thumbnail.png" class="box-border max-h-[100px] w-[250px]" />
         <div class="p-2">
           <div class="line-clamp-2 text-left text-sm font-bold">
