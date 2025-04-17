@@ -42,7 +42,7 @@
         "types": [
             "@inertiajs/vue3",
             "vite/client",
-            "vue/tsx",
+            // "vue/tsx",
             "./resources/js/types"
         ] /* Specify type package names to be included without being referenced in a source file. */,
         // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
