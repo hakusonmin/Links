@@ -30,7 +30,7 @@
     </div>
     <!-- 条件分岐：自分なら編集ボタン、他人ならフォロー -->
     <div class="mb-14 ml-1">
-      <Link v-if="isOwnProfile" href="/profile/edit" class="bg-black px-4 py-1.5 font-bold text-white">
+      <Link v-if="isOwnProfile" :href="route('mypage.profile.edit')" class="bg-black px-4 py-1.5 font-bold text-white">
         プロフィールを編集
       </Link>
       <FollowButton v-else :user="user" />

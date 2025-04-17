@@ -51,6 +51,11 @@ class Article extends Model
         return $this->belongsToMany(Genre::class, 'article_genres');
     }
 
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
     //↓Inertiaの場合はこれを定義(そして article.formatted_create_at みたいに呼ぶ)
     protected $appends = ['formatted_created_at', 'formatted_updated_at'];
 

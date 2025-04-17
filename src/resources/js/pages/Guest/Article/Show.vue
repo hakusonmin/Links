@@ -43,7 +43,9 @@ const onDelete = (event) => {
         <!-- ジャンル -->
         <div class="my-2 flex flex-wrap justify-end gap-4">
           <span v-for="genre in article.genres" :key="genre" class="bg-black px-4 py-1 text-sm font-bold text-white">
-            {{ genre.name }}
+            <Link as="a" :href="route('articles.genre', { genre: genre.id })">
+              {{ genre.name }}
+            </Link>
           </span>
         </div>
         <!-- 記事情報 -->

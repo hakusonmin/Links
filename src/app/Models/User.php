@@ -88,4 +88,10 @@ class User extends Authenticatable
     {
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
+
+    //likesテーブルは UserとArticleの中間テーブルだしね..
+    public function likedArticles()
+    {
+        return $this->belongsToMany(Article::class, 'likes')->withTimestamps();
+    }
 }

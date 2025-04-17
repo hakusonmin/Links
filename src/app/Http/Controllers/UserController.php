@@ -11,22 +11,16 @@ class UserController extends Controller
 {
     public function search(Request $request)
     {
-        //all()だとコレクションを取得していない
-        $query = User::query();
+        $sort = $request->input('sort', 'latest');
 
-        // 検索キーワード
-        if ($request->filled('query')) {
-            $query->where('name', 'like', '%' . $request->query('query') . '%');
-        }
-
-        // 並び順
-        if ($request->sort === 'followers') {
-            $query->orderByDesc('followers_count');
-        } else {
-            $query->orderByDesc('created_at');
-        }
-
-        $users = $query->paginate(10)->withQueryString();
+        $users = User::query()
+            ->when($request->filled('query'), function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->query('query') . '%');
+            })
+            ->when($sort === 'latest', fn($q) => $q->latest())
+            ->when($sort === 'followers', fn($q) => $q->orderByDesc('followers_count'))
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Guest/User/Search', [
             'users' => $users,

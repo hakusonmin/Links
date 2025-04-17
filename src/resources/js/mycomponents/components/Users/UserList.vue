@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
   <div class="mx-auto flex max-w-[960px] flex-col items-center">
     <div v-for="user in users" :key="user.id">
-      <Link as="a" :href="route('users.articles.index', { user: user.id })" class="m-3 flex h-12 w-[380px] border-2 border-gray-400 bg-white">
+      <Link as="a" :href="route('users.articles.index', { user: user.id })" class="m-2 flex h-12 w-[380px] border-2 border-gray-400 bg-white">
         <img src="/images/Thumbnail.png" class="box-border w-20" />
         <div class="my-auto p-1">
           <div class="flex items-center justify-start text-center text-sm font-bold ml-2">

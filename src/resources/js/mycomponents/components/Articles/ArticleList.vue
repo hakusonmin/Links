@@ -22,7 +22,7 @@ const props = defineProps({
             {{ article.user.name.charAt(0).toUpperCase() }}
           </div>
           <div class="mx-1">{{ article.user.name }}</div>
-          <div class="mx-1">{{ article.likes }} Likes</div>
+          <div class="mx-1">{{ article.likes_count }} Likes</div>
         </div>
       </div>
     </div>

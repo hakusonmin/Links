@@ -35,25 +35,41 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $query = Article::with('user');
+        //デフォルトのクエリ
+        $sort = $request->input('sort', 'latest');
 
-        // 検索キーワード
-        if ($request->filled('query')) {
-            $query->where('title', 'like', '%' . $request->query('query') . '%');
-        }
-
-        // 並び順
-        if ($request->sort === 'likes') {
-            $query->orderByDesc('likes_count');
-        } else {
-            $query->orderByDesc('created_at');
-        }
-
-        $articles = $query->paginate(10)->withQueryString();
+        $articles = Article::with('user')
+            ->when($request->filled('query'), function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->query('query') . '%');
+            })
+            ->when($sort === 'latest', fn($q) => $q->latest())
+            ->when($sort === 'likes', fn($q) => $q->orderByDesc('likes_count'))
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Guest/Article/Search', [
             'articles' => $articles,
             'filters' => $request->only(['query', 'sort']),
+        ]);
+    }
+
+    public function genre(Genre $genre, Request $request)
+    {
+        //デフォルトのクエリ
+        $sort = $request->input('sort', 'latest');
+
+        $articles = $genre->articles()
+            ->with('user')
+            ->where('is_published', true)
+            ->when($sort === 'latest', fn($q) => $q->latest())
+            ->when($sort === 'likes', fn($q) => $q->orderByDesc('likes_count'))
+            ->paginate(9)
+            ->withQueryString();
+
+        return Inertia::render('Guest/Article/Genre', [
+            'genre' => $genre,
+            'articles' => $articles,
+            'filters' => $request->only('sort'),
         ]);
     }
 
@@ -65,15 +81,11 @@ class ArticleController extends Controller
             ->with('user')
             ->when($sort === 'latest', fn($q) => $q->latest())
             ->when($sort === 'likes', fn($q) => $q->orderByDesc('likes_count'))
-            ->when(
-                $sort === 'priority',
-                fn($q) =>
-                $q->orderByRaw("FIELD(priority, 'high', 'middle', 'low')")
-            )
+            ->when($sort === 'priority', fn($q) => $q->orderByRaw("FIELD(priority, 'high', 'middle', 'low')"))
             ->paginate(9)
             ->withQueryString();
 
-        // フォローされているかを判定（ログインユーザーが存在する場合のみ）
+        // フォローされているかを判定（ログインユーザーが存在する場合のみ）↓ user.isFollowedで可否を取得できます.
         $user->isFollowed = Auth::check()
             ? $user->followers()->where('follower_id', Auth::id())->exists()
             : false;

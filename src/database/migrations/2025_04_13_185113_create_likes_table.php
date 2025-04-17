@@ -22,6 +22,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id', 'article_id']);
         });
     }
 

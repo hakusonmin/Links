@@ -25,7 +25,7 @@ const search = () => {
 <template>
   <ListLayout>
     <div class="mx-auto max-w-[960px]">
-      <div class="mb-4 text-xl font-bold">記事検索</div>
+      <div class="mb-4 text-xl font-bold mt-8">記事検索</div>
 
       <input type="text" v-model="form.query" placeholder="キーワードを入力してください" @keyup.enter="search" class="text-input" />
       <button @click="search"></button>

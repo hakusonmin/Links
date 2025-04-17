@@ -22,33 +22,23 @@ class LikeSeeder extends Seeder
             [
                 'id' => 2,
                 'user_id' => 1,
-                'article_id' => 1,
+                'article_id' => 2,
             ],
             [
                 'id' => 3,
                 'user_id' => 1,
-                'article_id' => 1,
+                'article_id' => 3,
             ],
             [
                 'id' => 4,
                 'user_id' => 1,
-                'article_id' => 1,
+                'article_id' => 4,
             ],
             [
                 'id' => 5,
                 'user_id' => 1,
-                'article_id' => 1,
+                'article_id' => 5,
             ],
-            [
-                'id' => 6,
-                'user_id' => 1,
-                'article_id' => 2,
-            ],
-            [
-                'id' => 7,
-                'user_id' => 1,
-                'article_id' => 3,
-            ]
         ]);
     }
 }
