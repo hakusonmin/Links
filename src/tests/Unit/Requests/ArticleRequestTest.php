@@ -1,46 +1,39 @@
 <?php
 
-namespace Tests\Unit\Requests;
-
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
-class ArticleRequestTest extends TestCase
-{
-    /** @test */
-    public function タイトルが必須であること()
-    {
-        $data = [
-            'title' => '',
-            'priority' => 'high',
-            'content' => '本文',
-        ];
+uses(TestCase::class);
 
-        $request = new ArticleRequest();
-        $rules = $request->rules();
+test('タイトルが必須であること', function () {
+    $data = [
+        'title' => '',
+        'priority' => 'high',
+        'content' => '本文',
+    ];
 
-        $validator = Validator::make($data, $rules);
+    $request = new ArticleRequest();
+    $rules = $request->rules();
 
-        $this->assertTrue($validator->fails());
-        $this->assertArrayHasKey('title', $validator->errors()->toArray());
-    }
+    $validator = Validator::make($data, $rules);
 
-    /** @test */
-    public function priorityが決まった値を取る()
-    {
-        $data = [
-            'title' => 'タイトル',
-            'priority' => 'invalid',
-            'content' => '本文',
-        ];
+    expect($validator->fails())->toBeTrue();
+    expect($validator->errors()->toArray())->toHaveKey('title');
+});
 
-        $request = new ArticleRequest();
-        $rules = $request->rules();
+test('priorityが決まった値を取る', function () {
+    $data = [
+        'title' => 'タイトル',
+        'priority' => 'invalid',
+        'content' => '本文',
+    ];
 
-        $validator = Validator::make($data, $rules);
+    $request = new ArticleRequest();
+    $rules = $request->rules();
 
-        $this->assertTrue($validator->fails());
-        $this->assertArrayHasKey('priority', $validator->errors()->toArray());
-    }
-}
+    $validator = Validator::make($data, $rules);
+
+    expect($validator->fails())->toBeTrue();
+    expect($validator->errors()->toArray())->toHaveKey('priority');
+});
