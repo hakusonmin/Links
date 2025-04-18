@@ -1,5 +1,7 @@
 {
-  "yaml.schemas": {
-    "openapi:v3": "file:///Users/fujita/Develop/laravel_p/Links/Links/docs/station3/apidoc.yaml"
-  }
+    "yaml.schemas": {
+        "openapi:v3": "file:///Users/fujita/Develop/laravel_p/Links/Links/docs/station3/apidoc.yaml"
+    },
+    //ワイのRootのsetting.jsonにもあるけど 個別のsetting.jsonにも書いて起きます
+    "cute-artisan-test.testCommand": ".vscode/run-laravel-test.sh", //超大事
 }

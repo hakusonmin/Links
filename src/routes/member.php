@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\MyPageUserController;
+use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,11 +35,11 @@ Route::middleware(['auth'])->group(function () {
 
     //マイページ関係ルート(likesはいいねした記事一覧/followsはフォローしているユーザー一覧)
     Route::prefix('mypage')->name('mypage.')->group(function () {
-        Route::get('dashboard', [MyPageUserController::class, 'dashboard'])->name('dashboard');
-        Route::get('liked-articles', [MyPageUserController::class, 'likedArticle'])->name('liked-articles');
-        Route::get('followed-users', [MyPageUserController::class, 'followedUsers'])->name('followed-users');
+        Route::get('dashboard', [MyPageController::class, 'dashboard'])->name('dashboard');
+        Route::get('liked-articles', [MyPageController::class, 'likedArticle'])->name('liked-articles');
+        Route::get('followed-users', [MyPageController::class, 'followedUsers'])->name('followed-users');
         // ↓->name('mypage.')あるからprofileのコンフリクト安心
-        Route::get('profile/edit', [MyPageUserController::class, 'profileEdit'])->name('profile.edit');
-        Route::put('profile', [MyPageUserController::class, 'profileUpdate'])->name('profile.update');
+        Route::get('profile/edit', [MyPageController::class, 'profileEdit'])->name('profile.edit');
+        Route::put('profile', [MyPageController::class, 'profileUpdate'])->name('profile.update');
     });
 });

@@ -1,6 +1,7 @@
 
 services:
   app:
+    container_name: laravel_app
     build:
       context: ./docker/php
     volumes:
