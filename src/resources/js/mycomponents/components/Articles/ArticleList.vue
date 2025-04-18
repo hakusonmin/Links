@@ -1,4 +1,6 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 const props = defineProps({
   articles: {
     type: Array,
@@ -9,22 +11,20 @@ const props = defineProps({
 
 <template>
   <div class="wrapper">
-    <div
-      v-for="article in articles"
-      :key="article.id"
-      class="article-card"
-    >
-      <img src="/images/Thumbnail.png" />
-      <div class="list-text">
-        <div class="moe">{{ article.title }}</div>
-        <div class="fuga">
-          <div class="flex mx-2 h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
-            {{ article.user.name.charAt(0).toUpperCase() }}
+    <div v-for="article in articles" :key="article.id">
+      <Link as="a" :href="route('articles.show', { article: article.id })" class="article-card">
+        <img src="/images/Thumbnail.png" />
+        <div class="list-text">
+          <div class="moe">{{ article.title }}</div>
+          <div class="fuga">
+            <div class="mx-2 flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
+              {{ article.user.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="mx-1">{{ article.user.name }}</div>
+            <div class="mx-1">{{ article.likes_count }} Likes</div>
           </div>
-          <div class="mx-1">{{ article.user.name }}</div>
-          <div class="mx-1">{{ article.likes_count }} Likes</div>
         </div>
-      </div>
+      </Link>
     </div>
   </div>
 </template>
