@@ -27,7 +27,7 @@ class ArticleRequestTest extends TestCase
     }
 
     /** @test */
-    public function priorityがenumの値であること()
+    public function priorityが決まった値を取る()
     {
         $data = [
             'title' => 'タイトル',
