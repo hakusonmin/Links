@@ -192,7 +192,7 @@ return [
         'birthday' => '誕生日',
         'body' => '本文',
         'city' => '市',
-        'content' => 'コンテンツ',
+        'content' => '文章',
         'country' => '国',
         'created_at' => '作成日',
         'creator' => '作成者',
@@ -256,6 +256,14 @@ return [
         'updated_at' => '更新日',
         'username' => 'ユーザー名',
         'year' => '年',
+
+        'profile_text' => 'プロフィールのテキスト',
+        'priority' => '優先度',
+        'genres' => 'ジャンル',
+        'genres.*' => 'ジャンル名',
+        'links' => 'リンク',
+        'links.*.title' => 'リンクのタイトル',
+        'links.*.link_url' => 'リンクのURL',
     ],
 
 ];
