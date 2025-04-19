@@ -1,15 +1,15 @@
 <!-- resources/js/mycomponents/components/User/UserProfileCard.vue -->
 <template>
   <div class="m-10 mx-auto flex max-w-[800px] items-center justify-center border-2 border-gray-500 bg-gray-50 p-6">
-    <div class="flex items-start gap-6">
+    <div class="flex items-start gap-6 ">
       <div class="mt-1 flex h-16 w-16 items-center justify-center rounded-md bg-black text-3xl font-bold text-white">
         {{ user.name.charAt(0).toUpperCase() }}
       </div>
       <div>
         <div class="flex text-center">
           <div class="flex text-center text-xl font-bold">
-            <div class="mx-3 my-auto text-center">{{ user.name }}</div>
-            <div class="mx-3 my-auto text-center">{{ user.followers_count }} Followers</div>
+            <div class="w-[120px] line-clamp-1 mx-2 my-auto text-center ">{{ user.name }}</div>
+            <div class="w-[150px] mx-2 my-auto text-center">{{ user.followers_count }} Followers</div>
           </div>
           <div class="mx-4 my-2 flex items-center gap-2 text-xl">
             <a v-if="user.github_url" :href="user.github_url" target="_blank">
@@ -23,7 +23,7 @@
             </a>
           </div>
         </div>
-        <div class="mx-3 whitespace-pre-line text-sm text-left">
+        <div class="max-w-[380px] line-clamp-3 mx-3 whitespace-pre-line text-sm text-left">
           {{ user.profile_text }}
         </div>
       </div>

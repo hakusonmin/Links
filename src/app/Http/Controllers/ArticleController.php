@@ -135,13 +135,14 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request, Article $article)
     {
+
         DB::transaction(function () use ($request) {
 
             $article = new Article();
             $article->title = $request->title;
             $article->priority = $request->priority;
             $article->content = $request->content;
-            $article->user_id = Auth::user()->id();
+            $article->user_id = Auth::id();
             $article->save();
 
             $genreIds = collect($request->genres)->map(function ($name) {
@@ -151,17 +152,17 @@ class ArticleController extends Controller
 
             // リンク保存
             foreach ($request->links as $link) {
-                if (!empty($link['title']) && !empty($link['url'])) {
+                if (!empty($link['title']) && !empty($link['link_url'])) {
                     $article->links()->create([
                         'title' => $link['title'],
-                        'url' => $link['url'],
+                        'link_url' => $link['link_url'],
                     ]);
                 }
             }
         });
 
         return redirect()
-            ->route('articles.show', [Auth::user()->id(), $article->id])
+            ->route('mypage.dashboard', [Auth::id(), $article->id])
             ->with(['message' => '記事を作成しました', 'status' => 'success']);
     }
 
@@ -220,7 +221,7 @@ class ArticleController extends Controller
         });
 
         return redirect()
-            ->route('articles.index')
+            ->route('mypage.dashboard')
             ->with(['message' => '記事を編集しました', 'status' => 'success']);
     }
 
@@ -232,7 +233,7 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()
-            ->route('articles.index', ['user' => Auth::id()])
+            ->route('mypage.dashboard', ['user' => Auth::id()])
             ->with([
                 'status' => 'success',
                 'message' => '記事を削除しました。',

@@ -53,6 +53,7 @@ class CommentController extends Controller
     public function destroy(Article $article, Comment $comment)
     {
         $this->authorize('delete', $comment);
+        
         $comment->delete();
 
         return redirect()->route('articles.show', $article)

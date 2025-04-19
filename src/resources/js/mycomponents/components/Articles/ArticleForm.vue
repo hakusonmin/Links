@@ -34,7 +34,7 @@ const removeGenre = (index) => {
 
 const addLink = () => {
   if (props.form.links.length < 5) {
-    props.form.links.push({ title: '', url: '' });
+    props.form.links.push({ title: '', link_url: '' });
   }
 };
 
@@ -46,14 +46,14 @@ const removeLink = (index) => {
 <template>
   <div>
     <div class="mb-4">
-      <label class="mb-1 block font-bold">タイトル</label>
-      <input v-model="form.title" class="w-full border-2 border-borderColor p-2" placeholder="タイトル" />
+      <label class="mb-1 block font-bold">タイトル（50字以内）</label>
+      <input v-model="form.title" class="w-full border-2 border-borderColor p-2" placeholder="タイトル" maxlength="50" />
     </div>
 
     <div class="mb-4">
-      <label class="mb-2 block font-bold">ジャンル一覧（3つまで）</label>
+      <label class="mb-2 block font-bold">ジャンル（10字以内）（3つまで）</label>
       <div v-for="(genre, index) in form.genres" :key="index" class="mb-2 flex gap-2">
-        <input v-model="form.genres[index]" class="w-1/3 border-2 border-borderColor p-1" placeholder="ジャンル名" />
+        <input v-model="form.genres[index]" class="w-1/3 border-2 border-borderColor p-1" placeholder="ジャンル名 " maxlength="10"/>
         <button @click="removeGenre(index)" class="bg-black px-4 text-[14px] font-bold text-white">&times;</button>
       </div>
       <button @click="addGenre" class="mt-2 bg-black px-4 py-1 text-[14px] font-bold text-white">ジャンルを追加</button>
@@ -67,11 +67,11 @@ const removeLink = (index) => {
     </div>
 
     <div class="mb-4">
-      <label class="mb-2 block font-bold">リンク一覧（5つまで）</label>
+      <label class="mb-2 block font-bold">リンク集（20字以内）（5つまで）</label>
       <div v-for="(link, index) in form.links" :key="index" class="mb-2 flex gap-2">
-        <input v-model="link.title" class="w-1/3 border-2 border-borderColor p-1" placeholder="リンクのタイトル" />
+        <input v-model="link.title" class="w-1/3 border-2 border-borderColor p-1" placeholder="リンクのタイトル" maxlength="20"/>
         <input v-model="link.link_url" class="w-2/3 border-2 border-borderColor p-1" placeholder="https://example.com" />
-        <button @click="removeLink(index)" class="bg-black px-4 text-[14px] font-bold text-white">&times;</button>
+        <button @click="removeLink(index)" class="bg-black px-4 text-[14px] font-bold text-white" >&times;</button>
       </div>
       <button @click="addLink" class="mt-2 bg-black px-4 py-1 text-[14px] font-bold text-white">リンクを追加</button>
     </div>

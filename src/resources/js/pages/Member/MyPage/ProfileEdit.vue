@@ -25,8 +25,8 @@ const submit = () => {
 
       <form @submit.prevent="submit" class="space-y-6">
         <div>
-          <label class="mb-1 block font-semibold">プロフィール文</label>
-          <textarea v-model="form.profile_text" rows="4" class="w-full border-2 border-borderColor p-2"></textarea>
+          <label class="mb-1 block font-semibold">プロフィール文 (100字以内)</label>
+          <textarea v-model="form.profile_text" rows="4" class="w-full border-2 border-borderColor p-2" maxlength="100"></textarea>
         </div>
 
         <div>

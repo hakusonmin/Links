@@ -23,12 +23,20 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // Str::limitで出力制限掛けます..
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            // '' を第三引数につけないと末尾に...がつきます..
+            'name' => Str::limit($this->faker->name(), 10, ''),
+            'profile_text' => Str::limit($this->faker->paragraph(2), 100),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('password'), // ← 任意のダミー
             'remember_token' => Str::random(10),
+            'followers_count' => $this->faker->numberBetween(0, 1000),
+            'is_admin' => $this->faker->boolean(),
+            'github_url' => $this->faker->url(),
+            'x_url' => $this->faker->url(),
+            'another_url' => $this->faker->url(),
         ];
     }
 

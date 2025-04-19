@@ -57,6 +57,8 @@ class MyPageController extends Controller
 
     public function profileUpdate(UserRequest $request)
     {
+        $this->authorize('update', $request->user());
+
         $request->user()->update($request->validated());
 
         return redirect()

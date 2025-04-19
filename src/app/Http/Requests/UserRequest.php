@@ -22,7 +22,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'profile_text' => ['nullable', 'string', 'max:1000'],
+            'profile_text' => ['nullable', 'string', 'max:100'],
             'github_url'   => ['nullable', 'url'],
             'x_url'        => ['nullable', 'url'],
             'another_url'  => ['nullable', 'url'],

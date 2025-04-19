@@ -22,14 +22,34 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'priority' => 'required|in:High,Middle,Low',
             'genres' => 'required|array|max:3',
-            'genres.*' => 'required|string|max:50',
+            'genres.*' => 'required|string|max:10',
             'links' => 'nullable|array|max:5',
-            'links.*.title' => 'nullable|string|max:255',
-            'links.*.url' => 'nullable|url|max:255',
-            'content' => 'required|string',
+            'links.*.title' => 'nullable|string|max:20',
+            'links.*.link_url' => 'nullable|url|max:255',
+            'content' => 'required|string|max:200000',
         ];
+    }
+
+    //link_urlをurlと間違えることあるからチェック..
+    //↓これで 片方でLinkがタイトルとURLセットで保存されていることを保証できる..
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            foreach ($this->input('links', []) as $index => $link) {
+                $title = $link['title'] ?? null;
+                $link_url = $link['link_url'] ?? null;
+
+                if ($title && !$link_url) {
+                    $validator->errors()->add("links.$index.link_url", 'URLを入力してください。');
+                }
+
+                if ($link_url && !$title) {
+                    $validator->errors()->add("links.$index.title", 'タイトルを入力してください。');
+                }
+            }
+        });
     }
 }

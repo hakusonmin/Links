@@ -9,8 +9,8 @@ class UserPolicy
     /**
      * Create a new policy instance.
      */
-    public function __construct()
+    public function update(User $authUser, User $targetUser): bool
     {
-        //
+        return $authUser->id === $targetUser->id;
     }
 }
