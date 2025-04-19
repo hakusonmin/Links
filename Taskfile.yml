@@ -10,6 +10,11 @@ tasks:
   fresh:
     cmds:
       - docker compose exec app php artisan migrate:fresh --seed
+  
+  init-env-linux:
+    cmds:
+      - echo "UID=$(id -u)" > .env
+      - echo "GID=$(id -g)" >> .env
 
   install:
     cmds:
@@ -18,6 +23,7 @@ tasks:
       - docker compose exec app cp .env.example .env
       - docker compose exec app php artisan key:generate
       - docker compose exec app php artisan storage:link
+      - docker compose exec app chmod -R 777 storage bootstrap/cache
       - docker compose exec app composer install
       - docker compose exec app npm install
       - task: fresh

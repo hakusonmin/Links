@@ -4,6 +4,9 @@ services:
     container_name: laravel_app
     build:
       context: ./docker/php
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     volumes:
       - ./src:/var/www/html
     depends_on:

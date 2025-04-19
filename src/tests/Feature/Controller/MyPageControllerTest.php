@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class MyPageControllerTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /**
      * A basic feature test example.
      */
