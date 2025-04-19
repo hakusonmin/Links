@@ -17,6 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->encryptCookies(except: ['appearance']);
 
         $middleware->web(append: [
+            //↓レートリミット 一分間に60回
+            \Illuminate\Routing\Middleware\ThrottleRequests::class.':60,1',
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
