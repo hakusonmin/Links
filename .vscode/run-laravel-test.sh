@@ -14,7 +14,9 @@ ARGS=($@)
 unset 'ARGS[${#ARGS[@]}-1]'
 
 # 実行ログ確認（任意）
-echo "Running: docker exec -i laravel_app php artisan test $CONTAINER_PATH ${ARGS[@]}"
+echo "Running: docker exec -i laravel_app ./vendor/bin/pest --colors=always $CONTAINER_PATH ${ARGS[@]}"
 
 # Dockerで実行
-docker exec -i laravel_app php artisan test "$CONTAINER_PATH" "${ARGS[@]}"
+docker exec -i laravel_app ./vendor/bin/pest --colors=always "$CONTAINER_PATH" "${ARGS[@]}"
+
+#こっちでもOK  docker exec -i laravel_app php artisan test --colors=always "$CONTAINER_PATH" "${ARGS[@]}"

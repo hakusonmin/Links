@@ -3,6 +3,14 @@ version: '3'
 # task fresh でシーディングが行われる..
 
 tasks:
+  test:
+    cmds:
+      - docker exec -i laravel_app ./vendor/bin/pest --colors=always /var/www/html/tests
+
+  fresh:
+    cmds:
+      - docker compose exec app php artisan migrate:fresh --seed
+
   install:
     cmds:
       - task: build
@@ -72,17 +80,9 @@ tasks:
     cmds:
       - docker compose exec app composer dump-autoload
 
-  test:
-    cmds:
-      - docker compose exec app php artisan test
-
   migrate:
     cmds:
       - docker compose exec app php artisan migrate
-
-  fresh:
-    cmds:
-      - docker compose exec app php artisan migrate:fresh --seed
 
   seed:
     cmds:
