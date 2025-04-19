@@ -35,7 +35,7 @@ class UserController extends Controller
             $authUser->followings()->attach($user->id);
             $user->increment('followers_count');
         }
-        return back()->with('status', 'success')->with('message', 'フォローしました');
+        return back()->with(['message' => 'フォローしました', 'status' => 'success']);
     }
 
     public function unfollow(User $user)
@@ -45,6 +45,6 @@ class UserController extends Controller
             $authUser->followings()->detach($user->id);
             $user->decrement('followers_count');
         }
-        return back()->with('status', 'success')->with('message', 'フォローを解除しました');
+        return back()->with(['message' => 'フォローを解除しました', 'status' => 'success']);
     }
 }

@@ -234,10 +234,7 @@ class ArticleController extends Controller
 
         return redirect()
             ->route('mypage.dashboard', ['user' => Auth::id()])
-            ->with([
-                'status' => 'success',
-                'message' => '記事を削除しました。',
-            ]);
+            ->with([ 'status' => 'success', 'message' => '記事を削除しました。',]);
     }
 
     public function togglePublish(Article $article)
@@ -264,7 +261,7 @@ class ArticleController extends Controller
             $article->increment('likes_count');
         }
 
-        return back()->with('status', 'success')->with('message', 'いいねしました');
+        return back()->with(['message' => 'いいねしました', 'status' => 'success']);
     }
 
     public function unlike(Article $article)
@@ -279,6 +276,6 @@ class ArticleController extends Controller
             $article->decrement('likes_count');
         }
 
-        return back()->with('status', 'success')->with('message', 'いいねを解除しました');
+        return back()->with(['message' => 'いいねを解除しました', 'status' => 'success']);
     }
 }

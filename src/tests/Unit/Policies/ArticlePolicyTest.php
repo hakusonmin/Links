@@ -4,7 +4,10 @@ use App\Models\Article;
 use App\Models\User;
 use App\Policies\ArticlePolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
+//↓beforeEachを使っている場合は↓を書かないとエラーが出ます.
+uses(TestCase::class);
 uses(RefreshDatabase::class);
 
 // Policy を共通で使いたい場合は beforeEach を使う

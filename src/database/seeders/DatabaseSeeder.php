@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // テスト環境ではSeederをスキップ
+        if (app()->environment('testing')) {
+            return;
+        }
+
         $this->call([
             UserSeeder::class,
             ArticleSeeder::class,

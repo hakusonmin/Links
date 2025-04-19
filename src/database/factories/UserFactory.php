@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'profile_text' => Str::limit($this->faker->paragraph(2), 100),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), // ← 任意のダミー
+            'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
             'followers_count' => $this->faker->numberBetween(0, 1000),
             'is_admin' => $this->faker->boolean(),

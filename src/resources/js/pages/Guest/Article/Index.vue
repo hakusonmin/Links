@@ -16,7 +16,7 @@ const sort = ref(props.filters?.sort || 'priority');
 
 const changeSort = () => {
   router.get(
-    route('users.articles.index'),
+    route('users.articles.index', { user: props.user.id}),
     { sort: sort.value },
     {
       preserveScroll: true,

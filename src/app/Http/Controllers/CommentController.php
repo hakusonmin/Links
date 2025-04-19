@@ -25,7 +25,7 @@ class CommentController extends Controller
         ]);
 
         return redirect()->route('articles.show', $article)
-            ->with('message', 'コメントを投稿しました')->with('status', 'success');
+            ->with(['message' => 'コメントを投稿しました', 'status' => 'success']);
     }
 
     public function edit(Article $article, Comment $comment)
@@ -47,16 +47,16 @@ class CommentController extends Controller
         ]);
 
         return redirect()->route('articles.show', $article)
-            ->with('message', 'コメントを更新しました')->with('status', 'success');
+            ->with(['message' => 'コメントを編集しました', 'status' => 'success']);
     }
 
     public function destroy(Article $article, Comment $comment)
     {
         $this->authorize('delete', $comment);
-        
+
         $comment->delete();
 
         return redirect()->route('articles.show', $article)
-            ->with('message', 'コメントを削除しました')->with('status', 'success');
+            ->with(['message' => 'コメントを削除しました', 'status' => 'success']);
     }
 }

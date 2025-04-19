@@ -31,7 +31,9 @@ class MyPageController extends Controller
 
         return Inertia::render('Member/MyPage/LikedArticles', [
             'articles' => $articles,
-            'filters' => $request->only('sort'),
+            'filters' => [
+                'sort' => $sort,
+            ],
         ]);
     }
 
