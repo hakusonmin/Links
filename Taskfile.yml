@@ -20,12 +20,13 @@ tasks:
     cmds:
       - task: build
       - task: up
+      # ↓composer i が key;geneとかより先
+      - docker compose exec app composer install
+      - docker compose exec app npm install
       - docker compose exec app cp .env.example .env
       - docker compose exec app php artisan key:generate
       - docker compose exec app php artisan storage:link
       - docker compose exec app chmod -R 777 storage bootstrap/cache
-      - docker compose exec app composer install
-      - docker compose exec app npm install
       - task: fresh
 
   build:
