@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 import terser from '@rollup/plugin-terser';
 
 export default defineConfig({
+    base: '/build/', 
     server: {
         host: '0.0.0.0', // Docker で外部公開
         port: 5173,
