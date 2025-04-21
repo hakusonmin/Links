@@ -47,9 +47,6 @@
                 <div class="title">
                     @yield('message')
                 </div>
-
-                <!-- トップページへのリンク -->
-                <a href="{{ url('/') }}" class="home-link">ホームに戻る</a>
             </div>
         </div>
     </body>
