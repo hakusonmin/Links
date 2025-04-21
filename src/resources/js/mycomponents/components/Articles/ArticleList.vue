@@ -20,8 +20,8 @@ const props = defineProps({
             <div class="mx-2 flex h-5 w-5 items-center justify-center rounded-md bg-black text-xs text-white">
               {{ article.user.name.charAt(0).toUpperCase() }}
             </div>
-            <div class="mx-1">{{ article.user.name }}</div>
-            <div class="mx-1">{{ article.likes_count }} Likes</div>
+            <div class="w-[100px] text-center">{{ article.user.name }}</div>
+            <div class="w-[80px] text-center">{{ article.likes_count }} Likes</div>
           </div>
         </div>
       </Link>

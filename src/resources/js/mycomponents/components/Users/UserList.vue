@@ -19,8 +19,8 @@ const props = defineProps({
             <div class="mx-2 flex h-6 w-6 items-center justify-center rounded-md bg-black text-white">
               {{ user.name.charAt(0).toUpperCase() }}
             </div>
-            <div class="mx-1">{{ user.name }}</div>
-            <div class="mx-1">{{ user.followers_count }} Followers</div>
+            <div class="w-[100px] text-center">{{ user.name }}</div>
+            <div class="w-[100px] text-center">{{ user.followers_count }} Followers</div>
           </div>
         </div>
       </Link>

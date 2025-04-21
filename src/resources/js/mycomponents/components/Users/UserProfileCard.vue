@@ -8,7 +8,7 @@
       <div>
         <div class="flex text-center">
           <div class="flex text-center text-xl font-bold">
-            <div class="w-[120px] line-clamp-1 mx-2 my-auto text-center ">{{ user.name }}</div>
+            <div class="w-[150px] line-clamp-1 mx-2 my-auto text-center ">{{ user.name }}</div>
             <div class="w-[150px] mx-2 my-auto text-center">{{ user.followers_count }} Followers</div>
           </div>
           <div class="mx-4 my-2 flex items-center gap-2 text-xl">

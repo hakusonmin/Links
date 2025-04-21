@@ -20,13 +20,16 @@ class ArticleController extends Controller
         // articles を「月間のいいね順（過去1ヶ月間のいいね数の多い順）」で返すには、
         // likes テーブルと結合して、過去30日間に付けられた like 数をカウント・ソートする
         // 必要がある。(withだけじゃだめ..)
+
         $articles = Article::with('user')
-            ->withCount(['likes as likes_count' => function ($query) {
+        ->withCount([
+            'likes as monthly_likes_count' => function ($query) {
                 $query->where('created_at', '>=', Carbon::now()->subMonth());
-            }])
-            ->orderByDesc('likes_count')
-            ->take(10)
-            ->get();
+            }
+        ])
+        ->orderByDesc('monthly_likes_count')
+        ->take(10)
+        ->get();
 
         return Inertia::render('Guest/Home', [
             'articles' => $articles,
