@@ -2,3 +2,8 @@
 
 - npm run build です
 - コンテナ起動する前にcompose.ovverride.yamlを絶対に削除してください
+
+差分
+git pull
+task npm-build
+task fresh
