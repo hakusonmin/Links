@@ -86,7 +86,7 @@ EOT;
                 'title' => 'Laravelの公式ドキュメントの読み方について完全解説します!6',
                 'content' => $sharedContent,
                 'priority' => 'high',
-                'is_published' => true,
+                'is_published' => false,
                 'likes_count' => 190,
                 'created_at' => '2021/01/06 11:11:11',
                 'updated_at' => '2021/01/06 11:11:11',

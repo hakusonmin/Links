@@ -32,8 +32,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 2,
-        'name' => 'Tanaka Taro2',
-        'profile_text' => "こんにちは田中太郎2です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
+        'name' => 'Satou Ken',
+        'profile_text' => "こんにちはSatou Kenです。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga@gmail.com',
         'password' => Hash::make('fugafuga'),
         'followers_count' => 11,
@@ -45,8 +45,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 3,
-        'name' => 'Tanaka Taro3',
-        'profile_text' => "こんにちは田中太郎3です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
+        'name' => 'Kaneko Satosi',
+        'profile_text' => "こんにちはKaneko Satosiです。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga1@gmail.com',
         'password' => Hash::make('fugafuga1'),
         'is_admin' => false,
@@ -58,8 +58,8 @@ class UserSeeder extends Seeder
       ],
       [
         'id' => 4,
-        'name' => 'Tanaka Taro4',
-        'profile_text' => "こんにちは田中太郎4です。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
+        'name' => 'Hasimoto Kenji',
+        'profile_text' => "こんにちはHasimoto Kenjiです。\nLaravel + Vue.js をメインに利用しております。\nよろしくお願いします..",
         'email' => 'fuga4@gmail.com',
         'password' => Hash::make('fugafuga4'),
         'is_admin' => false,

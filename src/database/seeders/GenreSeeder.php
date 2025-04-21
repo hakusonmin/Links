@@ -16,7 +16,7 @@ class GenreSeeder extends Seeder
     {
         DB::table('genres')->insert([
             ['id' => '1', 'name' => 'Laravel', 'created_at' => '2021/01/01 11:11:11'],
-            ['id' => '2', 'name' => 'Vue', 'created_at' => '2021/01/01 11:11:11'],
+            ['id' => '2', 'name' => '環境構築', 'created_at' => '2021/01/01 11:11:11'],
             ['id' => '3', 'name' => 'PHP', 'created_at' => '2021/01/01 11:11:11'],
           ]);
     }

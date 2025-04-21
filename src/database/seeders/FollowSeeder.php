@@ -18,6 +18,11 @@ class FollowSeeder extends Seeder
                 'id' => 1,
                 'follow_id' => 1,
                 'follower_id' => 2,
+            ],
+            [
+                'id' => 2,
+                'follow_id' => 2,
+                'follower_id' => 1,
             ]
         ]);
     }
