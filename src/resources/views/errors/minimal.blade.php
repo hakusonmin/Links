@@ -543,8 +543,8 @@
         <div class="text-lg text-gray-500 uppercase px-4 border-r border-gray-400 tracking-wider">
           @yield('message')
         </div>
-        <div>
-          <a href="{{ url('/') }}" class="ml-4 text-lg text-gray-500 ">ホームに戻る</a>
+        <div class="ml-4 text-lg text-gray-500">
+          <a href="{{ url('/') }}"  >ホームに戻る</a>
         </div>
       </div>
     </div>

@@ -16,7 +16,22 @@ class MyPageController extends Controller
         ]);
     }
 
-    public function likedArticle(Request $request)
+    public function unpublishedArticles()
+    {
+        $user = Auth::user();
+        $articles = $user->articles()
+            ->with('user')
+            ->where('is_published', false)
+            ->orderByDesc('created_at')
+            ->paginate(9)
+            ->withQueryString();
+
+        return Inertia::render('Member/MyPage/UnpublishedArticles', [
+            'articles' => $articles,
+        ]);
+    }
+
+    public function LikedArticles(Request $request)
     {
         $sort = $request->input('sort', 'latest');
 

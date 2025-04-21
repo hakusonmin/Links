@@ -36,7 +36,8 @@ Route::middleware(['auth'])->group(function () {
     //マイページ関係ルート(likesはいいねした記事一覧/followsはフォローしているユーザー一覧)
     Route::prefix('mypage')->name('mypage.')->group(function () {
         Route::get('dashboard', [MyPageController::class, 'dashboard'])->name('dashboard');
-        Route::get('liked-articles', [MyPageController::class, 'likedArticle'])->name('liked-articles');
+        Route::get('unpublished-articles', [MyPageController::class, 'unpublishedArticles'])->name('unpublished-articles');
+        Route::get('liked-articles', [MyPageController::class, 'likedArticles'])->name('liked-articles');
         Route::get('followed-users', [MyPageController::class, 'followedUsers'])->name('followed-users');
         // ↓->name('mypage.')あるからprofileのコンフリクト安心
         Route::get('profile/edit', [MyPageController::class, 'profileEdit'])->name('profile.edit');

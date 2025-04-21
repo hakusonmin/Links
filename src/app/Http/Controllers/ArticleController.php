@@ -22,14 +22,15 @@ class ArticleController extends Controller
         // 必要がある。(withだけじゃだめ..)
 
         $articles = Article::with('user')
-        ->withCount([
-            'likes as monthly_likes_count' => function ($query) {
-                $query->where('created_at', '>=', Carbon::now()->subMonth());
-            }
-        ])
-        ->orderByDesc('monthly_likes_count')
-        ->take(10)
-        ->get();
+            ->where('is_published', true)
+            ->withCount([
+                'likes as monthly_likes_count' => function ($query) {
+                    $query->where('created_at', '>=', Carbon::now()->subMonth());
+                }
+            ])
+            ->orderByDesc('monthly_likes_count')
+            ->take(10)
+            ->get();
 
         return Inertia::render('Guest/Home', [
             'articles' => $articles,
@@ -42,6 +43,7 @@ class ArticleController extends Controller
         $sort = $request->input('sort', 'latest');
 
         $articles = Article::with('user')
+            ->where('is_published', true)
             ->when($request->filled('query'), function ($query) use ($request) {
                 $query->where('title', 'like', '%' . $request->query('query') . '%');
             })
@@ -82,6 +84,7 @@ class ArticleController extends Controller
 
         $articles = $user->articles()
             ->with('user')
+            ->where('is_published', true)
             ->when($sort === 'latest', fn($q) => $q->latest())
             ->when($sort === 'likes', fn($q) => $q->orderByDesc('likes_count'))
             ->when($sort === 'priority', fn($q) => $q->orderByRaw("FIELD(priority, 'high', 'middle', 'low')"))
@@ -237,7 +240,7 @@ class ArticleController extends Controller
 
         return redirect()
             ->route('mypage.dashboard', ['user' => Auth::id()])
-            ->with([ 'status' => 'success', 'message' => '記事を削除しました。',]);
+            ->with(['status' => 'success', 'message' => '記事を削除しました。',]);
     }
 
     public function togglePublish(Article $article)
