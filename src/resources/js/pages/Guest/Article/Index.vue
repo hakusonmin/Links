@@ -12,7 +12,7 @@ const props = defineProps({
   filters: Object,
 });
 
-const sort = ref(props.filters?.sort || 'priority');
+const sort = ref( props.filters?.sort || 'priority' );
 
 const changeSort = () => {
   router.get(

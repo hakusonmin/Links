@@ -28,6 +28,21 @@ class ArticleGenreSeeder extends Seeder
                 'id' => 3,
                 'article_id' => 1,
                 'genre_id' => 3,
+            ],
+            [
+                'id' => 4,
+                'article_id' => 2,
+                'genre_id' => 1,
+            ],
+            [
+                'id' => 5,
+                'article_id' => 2,
+                'genre_id' => 2,
+            ],
+            [
+                'id' => 6,
+                'article_id' => 2,
+                'genre_id' => 3,
             ]
         ]);
     }

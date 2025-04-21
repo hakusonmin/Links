@@ -31,6 +31,24 @@ class LinkSeeder extends Seeder
                 'article_id' => 1,
                 'title' => 'Laravel公式ドキュメントの読み方',
                 'link_url' => 'https://example.com/',
+            ],
+            [
+                'id' => 4,
+                'article_id' => 2,
+                'title' => 'Laravel公式サイト',
+                'link_url' => 'https://example.com/',
+            ],
+            [
+                'id' => 5,
+                'article_id' => 2,
+                'title' => 'Laravel日本語ドキュメント',
+                'link_url' => 'https://example.com/',
+            ],
+            [
+                'id' => 6,
+                'article_id' => 2,
+                'title' => 'Laravel公式ドキュメントの読み方',
+                'link_url' => 'https://example.com/',
             ]
         ]);
     }

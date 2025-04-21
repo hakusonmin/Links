@@ -39,6 +39,21 @@ class LikeSeeder extends Seeder
                 'user_id' => 1,
                 'article_id' => 5,
             ],
+            [
+                'id' => 6,
+                'user_id' => 2,
+                'article_id' => 1,
+            ],
+            [
+                'id' => 7,
+                'user_id' => 2,
+                'article_id' => 6,
+            ],
+            [
+                'id' => 8,
+                'user_id' => 2,
+                'article_id' => 8,
+            ],
         ]);
     }
 }
