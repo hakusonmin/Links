@@ -1,4 +1,4 @@
-### 設計書の総合ルートです(リンクをクリックしてください)
+### README(詳細版)
 ***
 - [要件定義書](requirement.md)
 - [技術選定書](techSelection.md)
@@ -12,4 +12,4 @@
 - [テスト設計書](https://docs.google.com/spreadsheets/d/1S6HbHadiXYgfojZlGivRoFaMag1ApHLbE4QCj5zj84Q/edit?usp=sharing)
 - [WBS](https://docs.google.com/spreadsheets/d/1Smp046Mii5aNEyOWJCYTsivFBipF_zTuo7FdmSGzpXQ/edit?usp=sharing)
 ***
-[READMEへ戻る](../README.md)
+[README(概要版)へ戻る](../README.md)

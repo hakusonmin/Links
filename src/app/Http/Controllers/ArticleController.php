@@ -162,6 +162,7 @@ class ArticleController extends Controller
                     $article->links()->create([
                         'title' => $link['title'],
                         'link_url' => $link['link_url'],
+                        'comment' => $link['comment'],
                     ]);
                 }
             }
@@ -210,6 +211,7 @@ class ArticleController extends Controller
                     $existingLinks[$linkData['id']]->update([
                         'title' => $linkData['title'],
                         'link_url' => $linkData['link_url'],
+                        'comment' => $linkData['comment'],
                     ]);
                     $existingLinks->forget($linkData['id']); // 更新済みは除外
                 } elseif (!empty($linkData['title']) && !empty($linkData['link_url'])) {
@@ -217,6 +219,7 @@ class ArticleController extends Controller
                     $article->links()->create([
                         'title' => $linkData['title'],
                         'link_url' => $linkData['link_url'],
+                        'comment' => $linkData['comment'],
                     ]);
                 }
             }

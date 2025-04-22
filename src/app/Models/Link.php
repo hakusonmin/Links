@@ -14,6 +14,7 @@ class Link extends Model
         'article_id',
         'title',
         'link_url',
+        'comment'
     ];
 
     public function article()

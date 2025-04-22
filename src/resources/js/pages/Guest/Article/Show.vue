@@ -5,7 +5,7 @@ import TogglePublishButton from '@/mycomponents/components/Articles/TogglePublis
 import BaseLayout from '@/mycomponents/layouts/BaseLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { Link as LinkIcon } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   article: Object,
@@ -19,6 +19,13 @@ const onDelete = (event) => {
   if (window.confirm('本当にこの記事を削除しますか？')) {
     event.target.submit();
   }
+};
+
+// 各リンクの表示状態を保持（IDごとにtrue/false）
+const showComments = ref({});
+
+const toggleComment = (id) => {
+  showComments.value[id] = !showComments.value[id];
 };
 </script>
 
@@ -59,23 +66,30 @@ const onDelete = (event) => {
 
       <!-- リンク -->
       <div>
-        <h2 class="font-bold">この記事のリンク一覧(読んでみよう!!)</h2>
+        <h2 class="font-bold">この記事のリンク一覧とコメント(読んでみよう!!)</h2>
         <div v-for="link in article.links" :key="link.id" class="my-2 flex items-center gap-2 font-bold">
-          <a
-            :href="link.link_url"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex w-full items-center gap-2 border-2 border-gray-500 bg-white p-2"
-          >
-            <LinkIcon class="h-5 w-5" />
-            <span>{{ link.title }}</span>
-          </a>
+          <div class="flex w-full gap-1 items-start">
+            <button class="p-2 py-auto" type="button" @click.prevent="toggleComment(link.id)">
+              {{ showComments[link.id] ? '▼' : '▶' }}
+            </button>
+            <div class="w-full border-2 border-gray-500 bg-white ">
+              <div class="p-1">
+                <a :href="link.link_url" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                  <LinkIcon class="h-5 w-5" />
+                  <span>{{ link.title }}</span>
+                </a>
+              </div>
+              <div v-if="showComments[link.id]" class="py-1 px-4 border-t-2 border-gray-500 min-h-[7rem] whitespace-pre-line">
+                <div class="font-normal">{{ link.comment }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- 本文 -->
       <div>
-        <h2 class="text-lg font-bold">本文</h2>
+        <h2 class="text-lg font-bold">解説</h2>
         <div class="border-2 border-gray-500 bg-white px-6">
           <div class="prose max-w-none text-black">
             <div v-html="article.html_content"></div>

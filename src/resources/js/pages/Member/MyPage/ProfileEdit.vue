@@ -30,17 +30,17 @@ const submit = () => {
         </div>
 
         <div>
-          <label class="mb-1 block font-semibold">github url</label>
+          <label class="mb-1 block font-semibold">GithubのURL</label>
           <input type="url" v-model="form.github_url" class="w-full border-2 border-borderColor p-2" />
         </div>
 
         <div>
-          <label class="mb-1 block font-semibold">X(旧ツイッター) url</label>
+          <label class="mb-1 block font-semibold">X(旧ツイッター)のURL</label>
           <input type="url" v-model="form.x_url" class="w-full border-2 border-borderColor p-2" />
         </div>
 
         <div>
-          <label class="mb-1 block font-semibold">その他のurl</label>
+          <label class="mb-1 block font-semibold">その他のURL</label>
           <input type="url" v-model="form.another_url" class="w-full border-2 border-borderColor p-2" />
         </div>
 

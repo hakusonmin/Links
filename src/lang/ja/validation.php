@@ -257,13 +257,18 @@ return [
         'username' => 'ユーザー名',
         'year' => '年',
 
-        'profile_text' => 'プロフィールのテキスト',
+        'profile_text' => 'プロフィール文',
         'priority' => '優先度',
         'genres' => 'ジャンル',
         'genres.*' => 'ジャンル名',
         'links' => 'リンク',
         'links.*.title' => 'リンクのタイトル',
         'links.*.link_url' => 'リンクのURL',
+
+        'github_url' => 'GithubのURL',
+        'x_url' => 'XのURL',
+        'another_url' => 'その他のURL',
+
     ],
 
 ];
