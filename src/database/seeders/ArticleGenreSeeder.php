@@ -31,19 +31,14 @@ class ArticleGenreSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'article_id' => 2,
-                'genre_id' => 1,
+                'article_id' => 3,
+                'genre_id' => 6,
             ],
             [
                 'id' => 5,
                 'article_id' => 2,
-                'genre_id' => 2,
+                'genre_id' => 5,
             ],
-            [
-                'id' => 6,
-                'article_id' => 2,
-                'genre_id' => 3,
-            ]
         ]);
     }
 }

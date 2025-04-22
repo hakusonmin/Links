@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
             'genres' => 'required|array|max:3',
             'genres.*' => 'required|string|max:10',
             'links' => 'nullable|array|max:5',
-            'links.*.title' => 'nullable|string|max:20',
+            'links.*.title' => 'nullable|string|max:50',
             'links.*.link_url' => 'nullable|url|max:255',
             'links.*.comment' => 'nullable|string|max:500',
             'content' => 'required|string|max:200000',

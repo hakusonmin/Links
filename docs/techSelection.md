@@ -16,7 +16,9 @@
 
 - インフラ
   - Docker：composeで管理 (Nginx+PHP+MySQL)
-  - AWS LightSail：Dockerを利用するためFargateかLightSailのどちらかでしたが、開発の規模等を考慮し、LightSailを採用した。
+  - AWS Lightsail：Dockerを利用するためFargateかLightsailのどちらかでしたが、開発の規模等を考慮し、LightSailを採用した。
+  またLightsailはコンテナデプロイではなくインスタンスによる手動でのDocker起動を採用している。理由としては今回の構成ではCompose内にMySQLも組み込んだため
+  コンテナデプロイを使うと外部DBを利用する必要があり相性が良くないと判断したからだ。
   - Route53：ドメインの取得に使用
   - CertBot：SSLのため使用 
 ---

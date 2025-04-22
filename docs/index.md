@@ -2,8 +2,8 @@
 ***
 - [要件定義書](requirement.md)
 - [技術選定書](techSelection.md)
-- [画面設計書](https://www.figma.com/design/PN0sopRyfthY6Wg1KMYneR/Links?node-id=368-11078&t=dc7rcGu1O78SJach-1) (Figma)(プロトタイプで動きます)
-- [画面遷移図&ユーザーフロー図](https://www.figma.com/board/LqQSjrjNWCCRsoZAheK6Tn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%95%E3%83%AD%E3%83%BC%E5%9B%B3?node-id=0-1&t=2EIsgCzSkO5q5X0i-1) (Figjamを利用しています)
+- [画面設計書](https://www.figma.com/design/PN0sopRyfthY6Wg1KMYneR/Links?node-id=368-11078&t=dc7rcGu1O78SJach-1) (Figma)
+- [画面遷移図&ユーザーフロー図&インフラ構成図](https://www.figma.com/board/LqQSjrjNWCCRsoZAheK6Tn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%95%E3%83%AD%E3%83%BC%E5%9B%B3?node-id=0-1&t=2EIsgCzSkO5q5X0i-1) (Figjamを利用しています)
 - [API仕様書](apidoc.yaml) (OpenAPI形式)(Swaggerで閲覧してください)
 - [ER図](er.md) (Draw.ioをエクスポートしたもの)
 - [テーブル定義書](https://docs.google.com/spreadsheets/d/1vyCwW82jWa3zWYy8qUCxSUlGTpYzdT77AUk0thhqoto/edit?usp=sharing)

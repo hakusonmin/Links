@@ -71,7 +71,7 @@ const removeLink = (index) => {
 
       <div v-for="(link, index) in form.links" :key="index" class="mb-4 flex flex-col gap-2">
         <div class="flex gap-4">
-          <input v-model="link.title" class="w-1/3 border-2 border-borderColor p-1" placeholder="リンクのタイトル" maxlength="20" />
+          <input v-model="link.title" class="w-1/3 border-2 border-borderColor p-1" placeholder="リンクのタイトル" maxlength="50" />
           <input v-model="link.link_url" class="w-2/3 border-2 border-borderColor p-1" placeholder="https://example.com" />
         </div>
 
@@ -92,12 +92,12 @@ const removeLink = (index) => {
 
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <label class="mb-1 block font-bold">解説</label>
-        <textarea v-model="form.content" rows="30" class="w-full border-2 border-borderColor p-2"></textarea>
+        <label class="mb-1 block font-bold">全体に対するコメント</label>
+        <textarea v-model="form.content" rows="25" class="w-full border-2 border-borderColor p-2"></textarea>
       </div>
       <div>
         <label class="mb-1 block font-bold">プレビュー</label>
-        <div class="prose min-h-[740px] max-w-none border-2 border-borderColor bg-white p-2" v-html="preview"></div>
+        <div class="prose min-h-[500px] max-w-none border-2 border-borderColor bg-white p-2" v-html="preview"></div>
       </div>
     </div>
 
