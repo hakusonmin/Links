@@ -1,0 +1,5 @@
+.idea
+.vscode/*
+!.vscode/run-laravel-test.sh
+!.vscode/settings.json
+.env
