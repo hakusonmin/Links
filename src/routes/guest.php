@@ -2,8 +2,6 @@
 
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 

@@ -7,7 +7,7 @@ info:
     ***
     - このAPIは Inertia.js + Laravel に基づいています。
 
-    - 全画面に渡って共通で共有されている情報（shared props）：
+    - 全画面に渡って共通で共有されている情報（shared props）
       - `auth.user`: 現在ログインしているユーザー
       - `flash.message`: 成功・エラー時の通知
       - `flash.status`: 通知の種類（success / error）
@@ -18,7 +18,7 @@ info:
     ***
 
 servers:
-  - url: https://api.example.com/
+  - url: https://links-azzy.click
 
 tags:
   - name: General
@@ -29,30 +29,40 @@ tags:
     description: コメント
   - name: Users
     description: ユーザー情報
+  - name: MyPage
+    description: ダッシュボード関係
   - name: Genres
     description: ジャンル機能
-  - name: Likes
-    description: いいね機能
-  - name: Follows
-    description: フォロー機能
 
 paths:
-
   /home:
     get:
       summary: ホーム画面
       tags:
         - General
       responses:
-          "200":
-            $ref: "#/components/responses/HomeResponse"
-          '403':
-            $ref: '#/components/responses/ForbiddenResponse'
-          '404':
-            $ref: '#/components/responses/NotFoundResponse'
-          '500':
-            $ref: '#/components/responses/InternalServerErrorResponse'
-    
+        "200":
+          $ref: "#/components/responses/HomeResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+
+  /about:
+    get:
+      summary: Links使い方画面
+      tags:
+        - General
+      responses:
+        "200":
+          $ref: "#/components/responses/FoundResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+
   /articles/search:
     get:
       summary: 記事を検索
@@ -65,12 +75,31 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/ArticleCommonResponse"
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+
+  /users/{users}/articles/search:
+    get:
+      summary: ユーザーに基づく記事一覧を取得
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/QueryKeyword"
+        - $ref: "#/components/parameters/SearchResultSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
 
   /articles/{article}:
     get:
@@ -82,12 +111,12 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/ArticleDetailResponse"
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
 
     put:
       summary: 記事を更新
@@ -99,18 +128,18 @@ paths:
         $ref: "#/components/requestBodies/ArticleDetailRequestBody"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
-      
+
     delete:
       summary: 記事を削除
       tags:
@@ -119,19 +148,19 @@ paths:
         - $ref: "#/components/parameters/ArticleIdParameter"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/{article}/edit: 
+  /articles/{article}/edit:
     get:
       summary: 記事の編集画面へ
       tags:
@@ -141,37 +170,37 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/ArticleDetailResponse"
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/create: 
+  /articles/create:
     get:
       summary: 記事投稿画面へ
       tags:
         - Articles
       responses:
         "200":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/: 
+  /articles/:
     post:
       summary: 記事を投稿
       tags:
@@ -180,17 +209,81 @@ paths:
         $ref: "#/components/requestBodies/ArticleDetailRequestBody"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
+  
+  /articles/{article}/toggle-publish:
+    put:
+      summary: 記事を公開する
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/like:
+    post:
+      summary: いいねする
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /articles/{article}/unlike:
+    delete:
+      summary: いいねを解除する
+      tags:
+        - Articles
+      parameters:
+        - $ref: "#/components/parameters/ArticleIdParameter"
+      responses:
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
 
   /articles/{article}/comments/{comment}:
     put:
@@ -203,15 +296,15 @@ paths:
         $ref: "#/components/requestBodies/CommentRequestBody"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
@@ -223,38 +316,38 @@ paths:
         - $ref: "#/components/parameters/CommentIdParameter"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/{article}/comments/create: 
+  /articles/{article}/comments/create:
     get:
       summary: コメントを投稿する
       tags:
         - Comments
       responses:
         "200":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/{article}/comments/{comment}/edit: 
+  /articles/{article}/comments/{comment}/edit:
     get:
       summary: コメントを編集画面へ
       tags:
@@ -262,18 +355,18 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/CommentResponse"
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
-  /articles/{article}/comments/: 
+  /articles/{article}/comments/:
     post:
       summary: コメントを保存
       tags:
@@ -282,15 +375,15 @@ paths:
         $ref: "#/components/requestBodies/CommentRequestBody"
       responses:
         "302":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
@@ -306,147 +399,29 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/UserCommonResponse"
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-  
-  
-  /users/{user}:
-    get:
-      summary: ユーザー詳細画面
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-        - $ref: "#/components/parameters/ArticleSortOrder"
-        - $ref: "#/components/parameters/PageNumber"
-      responses:
-        "200":
-          $ref: "#/components/responses/ArticleCommonResponse"
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
 
-  /users/{user}/profile: 
-    put:
-      summary: ユーザープロフィール編集保存
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-      requestBody:
-        $ref: '#/components/requestBodies/UpdateUserProfileRequestBody'
-      responses:
-        "302":
-         $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-      security:
-        - sessionAuth: []
-
-  /users/{user}/profile/edit: 
-    get:
-      summary: ユーザープロフィール編集画面
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-      responses:
-        "200":
-         $ref: '#/components/schemas/User'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-      security:
-        - sessionAuth: []
-
-  /users/{user}/dashboard:
-    get:
-      summary: ユーザーダッシュボード画面
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-      responses:
-        "200":
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-      security:
-        - sessionAuth: []
-  
-  /users/{user}/likes:
-    get:
-      summary: いいねした記事一覧
-      tags:
-        - Likes
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-        - $ref: "#/components/parameters/ArticleSortOrder"
-        - $ref: "#/components/parameters/PageNumber"
-      responses:
-        "200":
-          $ref: "#/components/responses/ArticleCommonResponse"
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-      security:
-        - sessionAuth: []
-
-  /users/{user}/follows:
-    get:
-      summary: フォロワーしている人一覧
-      tags:
-        - Follows
-      parameters:
-        - $ref: "#/components/parameters/UserIdParameter"
-        - $ref: "#/components/parameters/PageNumber"
-      responses:
-        "200":
-          $ref: "#/components/responses/ArticleCommonResponse"
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
-      security:
-        - sessionAuth: []
-    
   /users/{user}/follow:
     post:
       summary: フォローする
       tags:
-        - Follows
+        - Users
       parameters:
         - $ref: "#/components/parameters/UserIdParameter"
       responses:
-        '302':
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
 
@@ -454,23 +429,140 @@ paths:
     delete:
       summary: フォローを解除する
       tags:
-        - Follows
+        - Users
       parameters:
         - $ref: "#/components/parameters/UserIdParameter"
       responses:
-        '302':
-          $ref: '#/components/responses/FoundResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '403':
-          $ref: '#/components/responses/ForbiddenResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "403":
+          $ref: "#/components/responses/ForbiddenResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /mypage/dashboard:
+    get:
+      summary: ユーザーダッシュボード画面
+      tags:
+        - MyPage
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
       security:
         - sessionAuth: []
   
+  /mypage/unpublished-articles:
+    get:
+      summary: 自分の非公開中の記事一覧
+      tags:
+        - MyPage
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /mypage/liked-articles:
+    get:
+      summary: いいねした記事一覧
+      tags:
+        - MyPage
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+        - $ref: "#/components/parameters/ArticleSortOrder"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /mypage/followed-users:
+    get:
+      summary: フォロワーしている人一覧
+      tags:
+        - MyPage
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+        - $ref: "#/components/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/components/responses/ArticleCommonResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+  
+  /mypage/profile:
+    put:
+      summary: ユーザープロフィール編集保存
+      tags:
+        - MyPage
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateUserProfileRequestBody"
+      responses:
+        "302":
+          $ref: "#/components/responses/FoundResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
+  /mypage/profile/edit:
+    get:
+      summary: ユーザープロフィール編集画面
+      tags:
+        - MyPage
+      parameters:
+        - $ref: "#/components/parameters/UserIdParameter"
+      responses:
+        "200":
+          $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+      security:
+        - sessionAuth: []
+
   /genres/{genre}/articles:
     get:
       summary: ジャンルの詳細取得(ジャンルタグから遷移する)
@@ -483,10 +575,10 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GenreResponse"
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-        '500':
-          $ref: '#/components/responses/InternalServerErrorResponse'
+        "404":
+          $ref: "#/components/responses/NotFoundResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerErrorResponse"
 
 components:
   schemas:
@@ -497,10 +589,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ArticleCommon"
-        userRanking:
-          type: array
-          items:
-            $ref: "#/components/schemas/UserCommon"
 
     ArticleCommon:
       allOf:
@@ -533,7 +621,7 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Comment"
-        
+
     UserCommon:
       allOf:
         - $ref: "#/components/schemas/User"
@@ -543,7 +631,7 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Follow"
-  
+
     ArticleMutation:
       allOf:
         - $ref: "#/components/schemas/Article"
@@ -561,7 +649,7 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Comment"
-    
+
     UserProfileInput:
       type: object
       properties:
@@ -625,7 +713,7 @@ components:
         content:
           type: string
           example: 投稿ありがとうございます
-    
+
     ArticleFilterByGenre:
       allOf:
         - $ref: "#/components/schemas/Article"
@@ -684,7 +772,7 @@ components:
           type: string
           format: email
           example: hoge.example.com
-        followers: 
+        followers:
           type: integer
           example: 100
         github_url:
@@ -724,6 +812,9 @@ components:
         link_url:
           type: string
           example: hoge.example.com
+        comment:
+          type: string
+          example: 右上部アンカーから全体像を把握してください
 
     Genre:
       type: object
@@ -795,7 +886,7 @@ components:
           title: error message
           type: string
           example: Internal Server Error.
-  
+
   parameters:
     QueryKeyword:
       name: query
@@ -822,7 +913,7 @@ components:
       description: 並び順（priority latest likes）
       schema:
         type: string
-        enum: [priority,latest, likes]
+        enum: [priority, latest, likes]
         default: priority
 
     PageNumber:
@@ -875,7 +966,6 @@ components:
       example: cfe43609-4c38-d52d-44ff-66bf2bc2d5c2
 
   requestBodies:
-
     ArticleDetailRequestBody:
       description: Article data
       required: true
@@ -883,7 +973,7 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ArticleDetailRequestBodyInput"
-    
+
     UpdateUserProfileRequestBody:
       description: profile data
       required: true
@@ -891,9 +981,9 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UserProfileInput"
-    
+
     CommentRequestBody:
-      description: Commet data
+      description: Comment data
       required: true
       content:
         application/json:
@@ -908,10 +998,10 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/Home"
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Home"
 
     ArticleCommonResponse:
       description: 成功時のレスポンス
@@ -920,19 +1010,19 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/ArticleCommon"
-               pagination:
-                 type: object
-                 properties:
-                   current_page:
-                     type: integer
-                   last_page:
-                     type: integer
-                   total:
-                     type: integer
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ArticleCommon"
+              pagination:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  last_page:
+                    type: integer
+                  total:
+                    type: integer
 
     ArticleDetailResponse:
       description: 成功時のレスポンス
@@ -941,19 +1031,19 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/ArticleDetail"
-               pagination:
-                 type: object
-                 properties:
-                   current_page:
-                     type: integer
-                   last_page:
-                     type: integer
-                   total:
-                     type: integer
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ArticleDetail"
+              pagination:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  last_page:
+                    type: integer
+                  total:
+                    type: integer
 
     UserCommonResponse:
       description: 成功時のレスポンス
@@ -962,20 +1052,20 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/UserCommon"
-               pagination:
-                 type: object
-                 properties:
-                   current_page:
-                     type: integer
-                   last_page:
-                     type: integer
-                   total:
-                     type: integer
-    
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserCommon"
+              pagination:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  last_page:
+                    type: integer
+                  total:
+                    type: integer
+
     GenreResponse:
       description: 成功時のレスポンス
       content:
@@ -983,19 +1073,19 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/ArticleFilterByGenre"
-               pagination:
-                 type: object
-                 properties:
-                   current_page:
-                     type: integer
-                   last_page:
-                     type: integer
-                   total:
-                     type: integer
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ArticleFilterByGenre"
+              pagination:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  last_page:
+                    type: integer
+                  total:
+                    type: integer
 
     CommentResponse:
       description: 成功時のレスポンス
@@ -1004,11 +1094,11 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/Comment"
-    
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+
     FollowResponse:
       description: フォロワーしているユーザー一覧
       content:
@@ -1016,22 +1106,22 @@ components:
           schema:
             type: object
             properties:
-               props:
-                 type: array
-                 items:
-                   $ref: "#/components/schemas/User"
-               pagination:
-                 type: object
-                 properties:
-                   current_page:
-                     type: integer
-                   last_page:
-                     type: integer
-                   total:
-                     type: integer
+              props:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+              pagination:
+                type: object
+                properties:
+                  current_page:
+                    type: integer
+                  last_page:
+                    type: integer
+                  total:
+                    type: integer
 
     FoundResponse:
-      description: | 
+      description: |
         Found(inertia.jsでは302が正常系)
       content:
         application/json:
@@ -1043,13 +1133,13 @@ components:
                 example: Found
 
     BadRequestResponse:
-      description: | 
+      description: |
         Bad Request.
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/ErrorModel'
+              - $ref: "#/components/schemas/ErrorModel"
             properties:
               code:
                 example: 400
@@ -1057,13 +1147,13 @@ components:
                 example: Bad Request.
 
     UnauthorizedResponse:
-      description: | 
+      description: |
         Unauthorized.
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/ErrorModel'
+              - $ref: "#/components/schemas/ErrorModel"
             properties:
               code:
                 example: 401
@@ -1071,13 +1161,13 @@ components:
                 example: Unauthorized.
 
     ForbiddenResponse:
-      description: | 
+      description: |
         Forbidden.
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/ErrorModel'
+              - $ref: "#/components/schemas/ErrorModel"
             properties:
               code:
                 example: 403
@@ -1085,13 +1175,13 @@ components:
                 example: Forbidden.
 
     NotFoundResponse:
-      description: | 
+      description: |
         Not Found.
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/ErrorModel'
+              - $ref: "#/components/schemas/ErrorModel"
             properties:
               code:
                 example: 404
@@ -1104,7 +1194,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            $ref: "#/components/schemas/ErrorModel"
 
   # 直下なの注意
   securitySchemes:
