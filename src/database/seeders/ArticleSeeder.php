@@ -195,6 +195,17 @@ EOT;
                 'created_at' => '2021/01/12 11:11:11',
                 'updated_at' => '2021/01/12 11:11:11',
             ],
+            [
+                'id' => 13,
+                'user_id' => 2,
+                'title' => 'Nginxを使って開発するときに参照した方が良いリンクまとめ',
+                'content' => $sharedContent,
+                'priority' => 'middle',
+                'is_published' => true,
+                'likes_count' => 101,
+                'created_at' => '2021/01/12 11:11:11',
+                'updated_at' => '2021/01/12 11:11:11',
+            ],
         ]);
     }
 }
