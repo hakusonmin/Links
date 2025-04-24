@@ -4,7 +4,7 @@ import Pagination from '@/mycomponents/components/Paginate/Pagination.vue';
 import UserProfileCard from '@/mycomponents/components/Users/UserProfileCard.vue';
 import ListLayout from '@/mycomponents/layouts/ListLayout.vue';
 import { router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
   user: Object,
@@ -12,7 +12,7 @@ const props = defineProps({
   filters: Object,
 });
 
-const sort = ref( props.filters?.sort || 'priority' );
+const sort = ref(props.filters.sort || 'priority');
 
 const changeSort = () => {
   router.get(
@@ -46,7 +46,6 @@ const changeSort = () => {
         いいね順
       </label>
     </div>
-
     <ArticleCard :articles="articles.data" />
 
     <Pagination :links="articles.links" />

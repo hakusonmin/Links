@@ -45,6 +45,7 @@ class ArticleController extends Controller
     {
         //デフォルトのクエリ
         $sort = $request->input('sort', 'latest');
+        $query = $request->query('query');
 
         $articles = Article::with('user')
             ->where('is_published', true)
@@ -58,7 +59,10 @@ class ArticleController extends Controller
 
         return Inertia::render('Guest/Article/Search', [
             'articles' => $articles,
-            'filters' => $request->only(['query', 'sort']),
+            'filters' => [
+                'sort' => $sort,
+                'query' => $query,
+            ],
         ]);
     }
 
@@ -78,7 +82,7 @@ class ArticleController extends Controller
         return Inertia::render('Guest/Article/Genre', [
             'genre' => $genre,
             'articles' => $articles,
-            'filters' => $request->only('sort'),
+            'filters' => [ 'sort' => $sort ],
         ]);
     }
 
@@ -103,7 +107,7 @@ class ArticleController extends Controller
         return Inertia::render('Guest/Article/Index', [
             'user' => $user,
             'articles' => $articles,
-            'filters' => $request->only('sort'),
+            'filters' => [ 'sort' => $sort ],
         ]);
     }
 

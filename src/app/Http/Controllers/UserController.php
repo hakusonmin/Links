@@ -12,6 +12,7 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $sort = $request->input('sort', 'latest');
+        $query = $request->query('query');
 
         $users = User::query()
             ->when($request->filled('query'), function ($query) use ($request) {
@@ -24,7 +25,10 @@ class UserController extends Controller
 
         return Inertia::render('Guest/User/Search', [
             'users' => $users,
-            'filters' => $request->only(['query', 'sort']),
+            'filters' => [
+                'sort' => $sort,
+                'query' => $query,
+            ],
         ]);
     }
 
