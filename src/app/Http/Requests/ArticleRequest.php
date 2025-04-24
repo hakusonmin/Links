@@ -23,7 +23,7 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'priority' => 'required|in:High,Middle,Low',
+            'priority' => 'required|in:high,middle,low',
             'genres' => 'required|array|max:3',
             'genres.*' => 'required|string|max:10',
             'links' => 'nullable|array|max:5',

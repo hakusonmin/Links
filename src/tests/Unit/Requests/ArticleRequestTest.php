@@ -29,7 +29,7 @@ test('priorityが決まった値を取る', function () {
 test('バリデーションが失敗する場合', function (array $override, string $expectedErrorKey) {
     $valid = [
         'title' => 'タイトル',
-        'priority' => 'High',
+        'priority' => 'high',
         'genres' => ['ジャンル1'],
         'content' => '本文',
         'links' => [
@@ -55,7 +55,7 @@ test('バリデーションが失敗する場合', function (array $override, st
 test('リンクのtitleとlink_urlがセットであることを検証', function (array $links, string $expectedErrorKey) {
     $valid = [
         'title' => 'タイトル',
-        'priority' => 'High',
+        'priority' => 'high',
         'genres' => ['ジャンル1'],
         'content' => '本文',
         'links' => $links,

@@ -61,9 +61,9 @@ const removeLink = (index) => {
 
     <div class="mb-4">
       <label class="mb-1 block font-bold">優先度</label>
-      <label><input type="radio" value="High" v-model="form.priority" /> High</label>
-      <label><input type="radio" value="Middle" v-model="form.priority" class="ml-4" /> Middle</label>
-      <label><input type="radio" value="Low" v-model="form.priority" class="ml-4" /> Low</label>
+      <label><input type="radio" value="high" v-model="form.priority" /> High</label>
+      <label><input type="radio" value="middle" v-model="form.priority" class="ml-4" /> Middle</label>
+      <label><input type="radio" value="low" v-model="form.priority" class="ml-4" /> Low</label>
     </div>
 
     <div class="mb-4">

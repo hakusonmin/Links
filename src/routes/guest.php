@@ -13,10 +13,11 @@ Route::get('/about', function () {
 
 Route::get('articles/search', [ArticleController::class, 'search'])->name('articles.search');
 //個々だけuserでくくって上げる..
+Route::middleware('web')->group(function () {
 Route::get('/users/{user}/articles', [ArticleController::class, 'index'])->name('users.articles.index');
+});
 Route::get('articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
 Route::get('/genres/{genre}/articles', [ArticleController::class, 'genre'])->name('articles.genre');
 
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
-

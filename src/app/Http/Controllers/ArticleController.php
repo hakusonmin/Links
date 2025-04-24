@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
+use App\Services\ArticleService;
 use App\Models\Article;
 use App\Models\Genre;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use League\CommonMark\CommonMarkConverter;
 
 class ArticleController extends Controller
 {
+    public function __construct(
+        private ArticleService $articleService
+    ) {}
+
     public function home()
     {
         // articles を「月間のいいね順（過去1ヶ月間のいいね数の多い順）」で返すには、
@@ -139,39 +143,15 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function store(ArticleRequest $request, Article $article)
+    public function store(ArticleRequest $request)
     {
-
-        DB::transaction(function () use ($request) {
-
-            $article = new Article();
-            $article->title = $request->title;
-            $article->priority = $request->priority;
-            $article->content = $request->content;
-            $article->user_id = Auth::id();
-            $article->save();
-
-            $genreIds = collect($request->genres)->map(function ($name) {
-                return Genre::firstOrCreate(['name' => $name])->id;
-            });
-            $article->genres()->sync($genreIds);
-
-            // リンク保存
-            foreach ($request->links as $link) {
-                if (!empty($link['title']) && !empty($link['link_url'])) {
-                    $article->links()->create([
-                        'title' => $link['title'],
-                        'link_url' => $link['link_url'],
-                        'comment' => $link['comment'],
-                    ]);
-                }
-            }
-        });
+        $article = $this->articleService->createArticle($request->validated());
 
         return redirect()
             ->route('mypage.dashboard', [Auth::id(), $article->id])
             ->with(['message' => '記事を作成しました', 'status' => 'success']);
     }
+
 
     // 編集画面
     public function edit(Article $article)
@@ -191,43 +171,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        DB::transaction(function () use ($request, $article) {
-            $article->title = $request->title;
-            $article->priority = $request->priority;
-            $article->content = $request->content;
-            $article->save();
-
-            // ジャンル同期（新規作成も含む）
-            $genreIds = collect($request->genres)->map(function ($name) {
-                return Genre::firstOrCreate(['name' => $name])->id;
-            });
-            $article->genres()->sync($genreIds);
-
-            $existingLinks = $article->links->keyBy('id');
-
-            foreach ($request->links as $linkData) {
-                if (!empty($linkData['id']) && $existingLinks->has($linkData['id'])) {
-                    // 既存のidが送られてきたらUpdate
-                    $existingLinks[$linkData['id']]->update([
-                        'title' => $linkData['title'],
-                        'link_url' => $linkData['link_url'],
-                        'comment' => $linkData['comment'],
-                    ]);
-                    $existingLinks->forget($linkData['id']); // 更新済みは除外
-                } elseif (!empty($linkData['title']) && !empty($linkData['link_url'])) {
-                    // それ以外は(=新しく送られてきたid)はCreate)
-                    $article->links()->create([
-                        'title' => $linkData['title'],
-                        'link_url' => $linkData['link_url'],
-                        'comment' => $linkData['comment'],
-                    ]);
-                }
-            }
-            // 残っているのはフロントから削除されたもの → 削除
-            foreach ($existingLinks as $link) {
-                $link->delete();
-            }
-        });
+        $this->articleService->updateArticle($article, $request->validated());
 
         return redirect()
             ->route('mypage.dashboard')
