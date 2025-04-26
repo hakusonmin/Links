@@ -11,7 +11,12 @@ const props = defineProps({
   },
 });
 
-const md = new MarkdownIt();
+const md = new MarkdownIt({
+  html: false,
+  linkify: true,
+  typographer: true,
+});
+
 const preview = ref('');
 
 watch(
@@ -83,14 +88,14 @@ const removeLink = (index) => {
             placeholder="リンクに対するコメントを書いてみてください"
           ></textarea>
 
-          <button @click="removeLink(index)" class="h-[2rem] my-auto self-start bg-black px-4 text-[14px] font-bold text-white">&times;</button>
+          <button @click="removeLink(index)" class="my-auto h-[2rem] self-start bg-black px-4 text-[14px] font-bold text-white">&times;</button>
         </div>
       </div>
 
       <button @click="addLink" class="mt-2 bg-black px-4 py-1 text-[14px] font-bold text-white">リンクを追加</button>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
         <label class="mb-1 block font-bold">全体に対するコメント</label>
         <textarea v-model="form.content" rows="25" class="w-full border-2 border-borderColor p-2"></textarea>
@@ -108,9 +113,19 @@ const removeLink = (index) => {
 </template>
 
 <style scoped>
-.prose :deep(h1),
-.prose :deep(h2),
-.prose :deep(p) {
-  margin: 0.5rem 0;
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+.prose :deep(ul > li)::marker {
+  color: var(--black);
+}
+
+.prose :where(code) {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
 }
 </style>
