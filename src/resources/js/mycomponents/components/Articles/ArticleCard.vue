@@ -7,8 +7,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-    <div v-for="article in articles" :key="article.id" class="m-3 border-2 border-gray-400 bg-white">
+  <div class="grid grid-cols-1 gap-2 place-items-center sm:grid-cols-2 md:grid-cols-3">
+    <div v-for="article in articles" :key="article.id" class="m-3 border-2 border-gray-400 bg-white w-[250px]">
       <Link as="a" :href="route('articles.show', { article: article.id  })">
         <img src="/images/Thumbnail.png" class="box-border max-h-[100px] w-[250px]" />
         <div class="p-2">

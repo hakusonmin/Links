@@ -16,6 +16,8 @@ body {
   --white: rgb(255, 255, 255);
   --font-black: rgb(67, 67, 67);
   --border-color: rgb(141, 141, 141);
+  --background-color: rgb(233, 229, 222);
+  --line-color:rgb(129, 129, 129);
 }
 
 body,

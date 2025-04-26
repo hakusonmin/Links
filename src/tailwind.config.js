@@ -26,6 +26,8 @@ export default {
                 white: 'var(--white)',
                 fontBlack: 'var(--font-black)',
                 borderColor: 'var(--border-color)',
+                backgroundColor: 'var(--background-color)',
+                lineColor: 'var(--line-color)',
 
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
@@ -78,14 +80,16 @@ export default {
                     ring: 'hsl(var(--sidebar-ring))',
                 },
             },
+            extend: {
+                screens: {
+                  'max-sm': { 'max': '639px' },
+                }
+            },
         },
     },
     plugins: [
         require('tailwindcss-animate'),
         require('@tailwindcss/typography'),
     ],
-    // corePlugins: {
-    //     preflight: false,
-    // },
 };
 

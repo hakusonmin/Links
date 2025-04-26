@@ -55,12 +55,22 @@ const toggleComment = (id) => {
             </Link>
           </span>
         </div>
-        <!-- 記事情報 -->
-        <div class="flex justify-end gap-4 font-bold text-black text-gray-700">
-          <div>優先度：{{ article.priority }}</div>
-          <div>{{ article.likes_count }} likes</div>
-          <div>投稿日：{{ article.formatted_created_at }}</div>
-          <div>更新日：{{ article.formatted_updated_at }}</div>
+
+        <div class="flex flex-col gap-2 font-bold text-black sm:flex-row sm:justify-between">
+          <div class="flex justify-end gap-2 text-right">
+            <div class="w-[200px] text-left">
+              <span class="mr-2.5">優先度：{{ article.priority }}</span>
+              <span>{{ article.likes_count }} likes</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 text-right sm:flex-row sm:justify-end">
+            <div class="flex justify-end">
+              <div class="w-[200px] text-left">投稿日：{{ article.formatted_created_at }}</div>
+            </div>
+            <div class="flex justify-end">
+              <div class="w-[200px] text-left">更新日：{{ article.formatted_updated_at }}</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -68,18 +78,18 @@ const toggleComment = (id) => {
       <div>
         <h2 class="font-bold">この記事のリンク一覧とコメント(読んでみよう!!)</h2>
         <div v-for="link in article.links" :key="link.id" class="my-2 flex items-center gap-2 font-bold">
-          <div class="flex w-full gap-1 items-start">
-            <button class="p-2 py-auto" type="button" @click.prevent="toggleComment(link.id)">
+          <div class="flex w-full items-start gap-1">
+            <button class="py-auto p-2" type="button" @click.prevent="toggleComment(link.id)">
               {{ showComments[link.id] ? '▼' : '▶' }}
             </button>
-            <div class="w-full border-2 border-gray-500 bg-white ">
+            <div class="w-full border-2 border-gray-500 bg-white">
               <div class="p-1">
                 <a :href="link.link_url" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
                   <LinkIcon class="h-5 w-5" />
                   <span>{{ link.title }}</span>
                 </a>
               </div>
-              <div v-if="showComments[link.id]" class="py-1 px-4 border-t-2 border-gray-500 min-h-[7rem] whitespace-pre-line">
+              <div v-if="showComments[link.id]" class="min-h-[7rem] whitespace-pre-line border-t-2 border-gray-500 px-4 py-1">
                 <div class="font-normal">{{ link.comment }}</div>
               </div>
             </div>

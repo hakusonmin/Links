@@ -39,6 +39,7 @@ const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.locati
                         variant="ghost"
                         :class="['w-full justify-start', { 'bg-muted': currentPath === item.href }]"
                         as-child
+                        class="border-2 border-borderColor"
                     >
                         <Link :href="item.href">
                             {{ item.title }}

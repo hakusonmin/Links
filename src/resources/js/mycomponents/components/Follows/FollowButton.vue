@@ -19,7 +19,7 @@ const toggleFollow = () => {
 </script>
 
 <template>
-  <button @click="toggleFollow" class="bg-black px-4 py-1.5 text-white font-bold">
-    {{ isFollowing ? 'フォロー中' : 'フォローする' }}
+  <button @click="toggleFollow" class="bg-black  text-sm px-4 py-1.5 text-white font-bold">
+    {{ isFollowing ? 'フォロー中' : 'フォロー' }}
   </button>
 </template>

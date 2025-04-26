@@ -14,9 +14,10 @@ const isLoggedIn = computed(() => !!page.props.auth.user);
   <div>
     <component :is="isLoggedIn ? LayoutHeader : LayoutHeaderGuest" />
 
-    <div class="line"></div>
+    <div class="h-10 bg-lineColor"></div>
 
-    <div class="main-wrapper">
+    <!-- ↓ここのpy-1超大事です marginじゃダメ -->
+    <div class="px-1 w-full bg-backgroundColor text-fontBlack">
       <FlashMessage />
       <ValidationErrors />
       <slot />
@@ -26,15 +27,5 @@ const isLoggedIn = computed(() => !!page.props.auth.user);
 </template>
 
 <style scoped>
-.main-wrapper {
-  width: 100%;
-  background-color: rgb(233, 229, 222);
-  /* ここで強制的にテキストの色を変えている */
-  color: var(--font-black);
-}
 
-.line {
-  height: 40px;
-  background-color: rgb(129, 129, 129);
-}
 </style>
