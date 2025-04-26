@@ -7,11 +7,11 @@ import { Link, usePage } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'プロファイル',
+        title: '・アカウント情報',
         href: '/settings/profile',
     },
     {
-        title: 'パスワード',
+        title: '・パスワード',
         href: '/settings/password',
     },
     // {
@@ -36,10 +36,9 @@ const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.locati
                     <Button
                         v-for="item in sidebarNavItems"
                         :key="item.href"
-                        variant="ghost"
                         :class="['w-full justify-start', { 'bg-muted': currentPath === item.href }]"
                         as-child
-                        class="border-2 border-borderColor"
+                        class="bg-black text-white font-bold"
                     >
                         <Link :href="item.href">
                             {{ item.title }}

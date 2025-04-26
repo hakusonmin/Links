@@ -4,6 +4,7 @@
 - フロントエンド
   - Vue.js：Laravelと一緒に使われる場合が多く、Laravel+Vue.jsの資料が豊富にあるため
   - TailwindCSS:laravel12のStarter-kitに標準搭載されているから
+  - Tailwind Variants
   - ESlint：laravel12のStarter-kitに標準搭載されているから
   - Prettier:laravel12のStarter-kitに標準搭載されているから
 
