@@ -40,13 +40,4 @@ const search = () => {
   </ListLayout>
 </template>
 
-<style scoped>
-.text-input {
-  color: var(--black);
-  font-weight: bold;
-  padding: 0 10px;
-  height: 30px;
-  width: 450px;
-  border: 2px solid var(--border-color);
-}
-</style>
+<style scoped></style>
