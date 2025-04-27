@@ -115,7 +115,7 @@ const removeLink = (index) => {
 <style scoped>
 .prose code::before,
 .prose code::after {
-  content: none !important;
+  content: none ;
 }
 .prose :deep(ul > li)::marker {
   color: var(--black);

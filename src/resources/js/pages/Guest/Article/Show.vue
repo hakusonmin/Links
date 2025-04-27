@@ -156,3 +156,13 @@ const toggleComment = (id) => {
     </div>
   </BaseLayout>
 </template>
+
+<style scoped>
+.prose code::before,
+.prose code::after {
+  content: none ;
+}
+.prose :deep(ul > li)::marker {
+  color: var(--black);
+}
+</style>
